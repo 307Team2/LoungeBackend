@@ -1,7 +1,6 @@
 ####Documentation
 
 Project Charter:
-
 https://docs.google.com/document/d/1IzQ16nEapbb6hWlmcd3pnbgY3Vw2xoC5zgrRWSjko0w/edit?usp=sharing
 
 Product Backlog:
