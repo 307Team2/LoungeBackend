@@ -1,0 +1,16 @@
+.homepage {
+  background: url("/images/cover-background.jpg");
+  background-size: cover;
+
+  .content {
+    position: relative;
+    top: 50vh;
+    transform: translateY(-50%);
+    margin-left: 20em;
+    color: white;
+
+    h1 {
+      font-size: 5em;
+    }
+  }
+}
