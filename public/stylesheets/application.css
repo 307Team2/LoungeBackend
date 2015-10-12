@@ -17,3 +17,23 @@ h1 {
     color: white; }
     .homepage .content h1 {
       font-size: 5em; }
+
+.begin-password-reset .content {
+  text-align: center; }
+  .begin-password-reset .content h1 {
+    font-size: 3em; }
+
+.reset-email-sent .content {
+  text-align: center; }
+  .reset-email-sent .content h1 {
+    font-size: 3em; }
+
+.reset-password .content {
+  text-align: center; }
+  .reset-password .content h1 {
+    font-size: 3em; }
+
+.password-reset-complete .content {
+  text-align: center; }
+  .password-reset-complete .content h1 {
+    font-size: 3em; }

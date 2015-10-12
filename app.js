@@ -7,6 +7,10 @@ var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var beginPasswordReset = require('./routes/begin-password-reset');
+var resetEmailSent = require('./routes/reset-email-sent');
+var resetPassword = require('./routes/reset-password');
+var passwordResetComplete = require('./routes/password-reset-complete');
 
 var app = express();
 
@@ -25,6 +29,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/users', users);
+app.use('/account/begin_password_reset', beginPasswordReset);
+app.use('/account/reset_email_sent', resetEmailSent);
+app.use('/account/reset_password', resetPassword);
+app.use('/account/password_reset_complete', passwordResetComplete);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
