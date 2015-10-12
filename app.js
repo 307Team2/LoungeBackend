@@ -8,6 +8,7 @@ var bodyParser = require('body-parser');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var account = require('./routes/account');
+var signup = require('./routes/signup');
 
 var app = express();
 
@@ -27,6 +28,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.use('/users', users);
 app.use('/account/', account);
+app.use('/signup', signup);
 
 // intialize app settings
 app.set('port', (process.env.PORT || 3000));

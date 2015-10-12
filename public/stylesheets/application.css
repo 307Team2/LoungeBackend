@@ -37,3 +37,8 @@ h1 {
   text-align: center; }
   .password-reset-complete .content h1 {
     font-size: 3em; }
+
+.signup .content {
+  text-align: center; }
+  .signup .content h1 {
+    font-size: 3em; }
