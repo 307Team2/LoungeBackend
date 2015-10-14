@@ -1,5 +1,5 @@
 var React = require('react');
-var SignUpWrapper = require('./layout.jsx');
+var SignUpWrapper = require('../layout.jsx');
 
 var SignUp = React.createClass({
   render: function() {
