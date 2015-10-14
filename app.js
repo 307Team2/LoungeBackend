@@ -33,7 +33,14 @@ app.set('mongoURI', (process.env.MONGO_URI || 'mongodb://localhost/test'));
 // initialize db connection
 // TODO: Use environment variable
 var mongoose = require('mongoose');
-mongoose.connect(app.get('mongoURI'));
+var MongoDB = mongoose.connect(app.get('mongoURI')).connection;
+MongoDB.on('error', function(err) {
+    console.log(err.message);
+});
+MongoDB.once('open', function() {
+    console.log('mongodb connection opened');
+});
+// mongoose.connect(app.get('mongoURI'));
 
 // start server
 app.listen(app.get('port'), function() {
