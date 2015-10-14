@@ -26,6 +26,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.use('/users', users);
 
+// intialize app settings
+app.set('port', (process.env.PORT || 3000));
+app.set('mongoURI', (process.env.MONGO_URI || 'mongodb://localhost/test'));
+
 // initialize db connection
 // TODO: Use environment variable
 var mongoose = require('mongoose');
