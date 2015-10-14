@@ -26,6 +26,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.use('/users', users);
 
+// initialize db connection
+// TODO: Use environment variable
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/test');
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
