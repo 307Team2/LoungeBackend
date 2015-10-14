@@ -1,5 +1,5 @@
 var React = require('react');
-var ResetEmailSentWrapper = require('./layout.jsx');
+var ResetEmailSentWrapper = require('../layout.jsx');
 
 var ResetEmailSent = React.createClass({
   render: function() {

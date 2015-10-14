@@ -1,5 +1,5 @@
 var React = require('react');
-var PasswordResetCompleteWrapper = require('./layout.jsx');
+var PasswordResetCompleteWrapper = require('../layout.jsx');
 
 var PasswordResetComplete = React.createClass({
   render: function() {

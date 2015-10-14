@@ -1,5 +1,5 @@
 var React = require('react');
-var ResetPasswordWrapper = require('./layout.jsx');
+var ResetPasswordWrapper = require('../layout.jsx');
 
 var ResetPassword = React.createClass({
   render: function() {
