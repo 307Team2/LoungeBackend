@@ -9,7 +9,7 @@ var Homepage = React.createClass({
           <div className="content">
             <h1>Lounge</h1>
             <p>An interactive web experience for rich people.</p>
-            <a className="btn">Log In</a>
+            <a className="btn" href="/account/login">Log In</a>
             <a className="btn" href="/account/signup">Sign Up</a>
           </div>
         </div>

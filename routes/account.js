@@ -2,8 +2,13 @@ var express = require('express');
 var router = express.Router();
 
 /* GET sign up. */
+router.get('/login', function(req, res, next) {
+  res.render('account/login');
+});
+
+/* GET sign up. */
 router.get('/signup', function(req, res, next) {
-  res.render('signup');
+  res.render('account/signup');
 });
 
 /* GET begin password reset page. */
