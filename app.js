@@ -28,41 +28,23 @@ app.use('/', routes);
 app.use('/users', users);
 app.use('/account/', account);
 
+// intialize app settings
+app.set('port', (process.env.PORT || 3000));
+app.set('mongoURI', (process.env.MONGO_URI || 'mongodb://localhost/test'));
+
 // initialize db connection
 // TODO: Use environment variable
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/test');
-
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
+var MongoDB = mongoose.connect(app.get('mongoURI')).connection;
+MongoDB.on('error', function(err) {
+    console.log(err.message);
 });
-
-// error handlers
-
-// development error handler
-// will print stacktrace
-if (app.get('env') === 'development') {
-  app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
-    res.render('error', {
-      message: err.message,
-      error: err
-    });
-  });
-}
-
-// production error handler
-// no stacktraces leaked to user
-app.use(function(err, req, res, next) {
-  res.status(err.status || 500);
-  res.render('error', {
-    message: err.message,
-    error: {}
-  });
+MongoDB.once('open', function() {
+    console.log('mongodb connection opened');
 });
+// mongoose.connect(app.get('mongoURI'));
 
-
-module.exports = app;
+// start server
+app.listen(app.get('port'), function() {
+    console.log('server listening on port', app.get('port'));
+});
