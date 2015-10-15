@@ -19,7 +19,6 @@ var DefaultLayout = React.createClass({
           <title>{this.props.title}</title>
 
           <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-
           <link href='https://fonts.googleapis.com/css?family=Abril+Fatface|Source+Sans+Pro:400,700,300,300italic,400italic,700italic' rel='stylesheet' type='text/css'/>
           <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
           <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
