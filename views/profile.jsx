@@ -6,6 +6,18 @@ var Profile = React.createClass({
     return (
       <ProfileWrapper page="profile">
         <div className="container">
+          <div className="row">
+            <div className="col-sm-4">
+              <div className="panel">
+                wat
+              </div>
+            </div>
+            <div className="col-sm-8">
+              <div className="panel">
+                wat
+              </div>
+            </div>
+          </div>
           <div className="sidecar">
             <img className="image" src={"/images/profile.jpg"}/> 
             <h1>Miranda Mott</h1>
