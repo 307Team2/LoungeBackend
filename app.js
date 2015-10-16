@@ -72,6 +72,15 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+// requires the model with Passport-Local Mongoose plugged in
+var LocalStrategy = require('passport-local').Strategy;
+var User = require('./models/user');
+
+// use static serialize and deserialize of model for passport session support
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
 // require routes
 require('./routes/index.js')(app);
 require('./routes/account.js')(app);
@@ -79,16 +88,6 @@ require('./routes/events.js')(app);
 require('./routes/post.js')(app);
 require('./routes/profile.js')(app);
 require('./routes/feed.js')(app);
-
-// requires the model with Passport-Local Mongoose plugged in
-var User = require('./models/user');
-
-// use static authenticate method of model in LocalStrategy
-passport.use(User.createStrategy());
-
-// use static serialize and deserialize of model for passport session support
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
 
 // start server
 app.listen(app.get('port'), function() {
