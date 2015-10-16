@@ -152,3 +152,8 @@
         text-align: center; }
         .edit-profile .container .content .fields .buttons .button {
           padding: 5px; }
+
+.event-well {
+  margin: 0 auto;
+  max-width: 50em;
+  width: 90%; }

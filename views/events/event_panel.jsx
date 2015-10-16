@@ -3,9 +3,13 @@ var React = require('react');
 var EventPanel = React.createClass({
   render: function() {
     return (
-      <div>
-        <h1>{this.props.event.test}</h1>
-      </div>
+      <a href={"/eventTest"}>
+        <div className="event-panel">
+          <h1>{this.props.event.name}</h1>
+          <h2>{this.props.event.date.getDate()}</h2>
+          <p>{this.props.event.description}</p>
+        </div>
+      </a>
     );
   }
 });
