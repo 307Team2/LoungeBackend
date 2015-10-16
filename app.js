@@ -52,7 +52,6 @@ MongoDB.once('open', function() {
 app.use(express.static('public'));
 app.use(cookieParser);
 app.use(bodyParser);
-app.use(session({ secret: 'lounge-secret' }));
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -74,12 +73,23 @@ if (typeof process.env.REDISTOGO_URL === 'undefined') {
 	redisPassword = 'evan';
 } else {
 	redisUrl = url.parse(process.env.REDISTOGO_URL);
+	// this will be set later by the external redis service we use
 	redisPassword = 'NEEDTOSETREDISPASSWORD'
 }
 
 var redisHost = redisUrl.hostname;
 var redisPort = redisUrl.port;
 
+app.use(session({ 
+	resave: false,
+	store: new RedisStore({
+		host: config.redisHost,
+		port: config.redisPort,
+		pass: config.redisPassword
+	}),
+	saveUninitialized: false,
+	secret: 'lounge-secret' }));
+}));
 // start server
 app.listen(app.get('port'), function() {
     console.log('server listening on port', app.get('port'));
