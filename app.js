@@ -29,6 +29,7 @@ require('./routes/index.js')(app);
 require('./routes/account.js')(app);
 require('./routes/event.js')(app);
 require('./routes/post.js')(app);
+require('./routes/profile.js')(app);
 
 // initialize db connection
 // TODO: Use environment variable

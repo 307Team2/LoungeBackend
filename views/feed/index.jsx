@@ -1,5 +1,6 @@
 var React = require('react');
 var LoungeWebWrapper = require('../layout.jsx');
+var Posts = require('./posts.jsx');
 
 var Feed = React.createClass({
 
@@ -40,7 +41,7 @@ var Feed = React.createClass({
       <LoungeWebWrapper title="Feed" page="feed">
         <div className="container">
           {this.renderNewPostForm()}
-          {this.renderPosts()}
+          <Posts posts={this.props.posts} />
         </div>
       </LoungeWebWrapper>
     );

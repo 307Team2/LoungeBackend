@@ -1,0 +1,63 @@
+.edit-profile {
+  background-color: #460000;
+
+  .container {
+    background-color: black;
+    
+    .content {
+      h1 {
+        font-size: 3em;
+        text-align: center;
+        color: white;
+      }
+
+      hr {
+        display: block;
+        margin-top: 0.5em;
+        margin-bottom: 0.5em;
+        margin-left: auto;
+        margin-right: auto;
+        border-style: inset;
+        border-width: 1px;
+      }
+
+      .image-container {
+        float: left;
+        margin-left: 10%;
+        margin-right: 10%;
+        padding: 5px;
+        color: white;
+        line-height: 25px;
+
+        .image {
+          max-width: 100%;
+          height: auto;
+          width: auto\9;
+        }
+      }
+
+      .fields {
+        float: left;
+        line-height: 25px;
+        
+        p {
+          margin: 5px 10px;
+          color: white;
+
+          input {
+            width: 100%;
+            color: black;
+          }
+        }
+
+        .buttons {
+          text-align: center;
+
+          .button {
+            padding: 5px;
+          }
+        }
+      }
+    }
+  }
+}

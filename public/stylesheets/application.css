@@ -58,7 +58,99 @@ h1 {
     margin-bottom: 1em; }
   .feed .new-post button {
     margin-right: 1em; }
-  .feed .post .post-content, .feed .post .post-metadata {
-    margin-bottom: 0; }
-  .feed .post .post-metadata {
-    font-size: 0.8em; }
+
+.post .post-content, .post .post-metadata {
+  margin-bottom: 0; }
+
+.post .post-metadata {
+  font-size: 0.8em; }
+
+.profile {
+  background: #DDD; }
+  .profile .row .panel {
+    padding: 15px; }
+  .profile .sidecar {
+    color: white;
+    max-width: 25%;
+    text-align: center;
+    background-color: black;
+    line-height: 20px;
+    float: left;
+    margin-right: 20px;
+    padding: 5px; }
+    .profile .sidecar .image {
+      max-width: 100%;
+      height: auto;
+      width: auto\9; }
+    .profile .sidecar h1 {
+      font-size: 3em;
+      max-width: 100%; }
+  .profile .content {
+    background-color: #AD855C;
+    padding: 5px;
+    max-width: 100%;
+    height: auto; }
+    .profile .content h1 {
+      font-size: 4em;
+      text-align: center;
+      color: black; }
+    .profile .content hr {
+      display: block;
+      margin-top: 0.5em;
+      margin-bottom: 0.5em;
+      margin-left: auto;
+      margin-right: 20px;
+      border-style: inset;
+      border-width: 1px;
+      border-color: black; }
+    .profile .content .post {
+      border-radius: 15px;
+      background-color: #CCCCCC;
+      margin-right: 15px; }
+      .profile .content .post h2 {
+        font-size: 2em;
+        color: black; }
+      .profile .content .post h3 {
+        font-size: 1em;
+        color: black; }
+
+.edit-profile {
+  background-color: #460000; }
+  .edit-profile .container {
+    background-color: black; }
+    .edit-profile .container .content h1 {
+      font-size: 3em;
+      text-align: center;
+      color: white; }
+    .edit-profile .container .content hr {
+      display: block;
+      margin-top: 0.5em;
+      margin-bottom: 0.5em;
+      margin-left: auto;
+      margin-right: auto;
+      border-style: inset;
+      border-width: 1px; }
+    .edit-profile .container .content .image-container {
+      float: left;
+      margin-left: 10%;
+      margin-right: 10%;
+      padding: 5px;
+      color: white;
+      line-height: 25px; }
+      .edit-profile .container .content .image-container .image {
+        max-width: 100%;
+        height: auto;
+        width: auto\9; }
+    .edit-profile .container .content .fields {
+      float: left;
+      line-height: 25px; }
+      .edit-profile .container .content .fields p {
+        margin: 5px 10px;
+        color: white; }
+        .edit-profile .container .content .fields p input {
+          width: 100%;
+          color: black; }
+      .edit-profile .container .content .fields .buttons {
+        text-align: center; }
+        .edit-profile .container .content .fields .buttons .button {
+          padding: 5px; }
