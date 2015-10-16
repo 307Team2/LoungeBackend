@@ -14,7 +14,6 @@ var Profile = React.createClass({
                 <p>Location: {this.props.user.location}</p>
                 <p>Organization: {this.props.user.organization}</p>
                 <p>Job Title: {this.props.user.jobTitle}</p>
-                <a href="/profile/edit"><button type="button" className="btn btn-default">Edit Profile</button></a>
               </div>
             </div>
           </div>
