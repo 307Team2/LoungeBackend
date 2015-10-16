@@ -1,32 +1,42 @@
 var React = require('react');
-var EditProfileWrapper = require('./layout.jsx');
+var ProfileWrapper = require('./layout.jsx');
+var Posts = require('./feed/posts.jsx');
 
 var EditProfile = React.createClass({
   render: function() {
     return (
-      <EditProfileWrapper page="edit-profile">
+      <ProfileWrapper page="profile">
         <div className="container">
-          <div className="content">
-            <h1>Edit profile</h1>
-            <hr />
-            <div className="image-container">
-              <img className="image" src={"/images/profile.jpg"}/>
-              <p>Picture: <input type="file" name="newimage" accept="image/*" /></p>
-            </div>
-            <div className = "fields">
-              <p>Name: <input type="text" name="fullname" placeholder="Miranda Mott" /></p>
-              <p>Age: <input type="text" name="fullname" placeholder="21" /></p>
-              <p>Location: <input type="text" name="fullname" placeholder="West Lafayette, IN" /></p>
-              <p>Organization: <input type="text" name="organization" placeholder="ITaP" /></p>
-              <p>Job Title: <input type="text" name="job" placeholder="Web/Mobile App Intern" /></p>
-              <div className="buttons">
-                <a className="button" href="/profile">Save</a>
-                <a className="button" href="/profile">Cancel</a>
+          <div className="row">
+            <div className="col-sm-4 col-sm-offset-2">
+              <div className="panel">
+                <img className="img-thumbnail img-responsive" src={"/images/profile.png"}/> 
+                <h2>{this.props.user.firstname} {this.props.user.lastname}</h2>
+                <p>
+                  Age:
+                  <input type="text" placeholder={this.props.user.age} />
+                </p>
+                <p>
+                  Location:
+                  <input type="text" placeholder={this.props.user.location} />
+                </p>
+                <p>
+                  Organization:
+                  <input type="text" placeholder={this.props.user.organization} />
+                </p>
+                <p>
+                  Job Title:
+                  <input type="text" placeholder={this.props.user.title} />
+                </p>
+                <a href="/profile"><button type="button" className="btn btn-success">Submit Changes</button></a>
               </div>
+            </div>
+            <div className="col-sm-4">
+              <Posts posts={this.props.posts} />
             </div>
           </div>
         </div>
-      </EditProfileWrapper>
+      </ProfileWrapper>
     );
   }
 });

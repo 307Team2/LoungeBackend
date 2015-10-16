@@ -5,12 +5,6 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var routes = require('./routes/index');
-var users = require('./routes/users');
-var account = require('./routes/account');
-var feed = require('./routes/feed');
-var profile = require('./routes/profile');
-
 var app = express();
 
 // view engine setup
@@ -26,12 +20,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', routes);
-app.use('/users', users);
-app.use('/account/', account);
-app.use('/feed/', feed);
-app.use('/profile/', profile);
-
 // intialize app settings
 app.set('port', (process.env.PORT || 3000));
 app.set('mongoURI', (process.env.MONGO_URI || 'mongodb://localhost/lounge'));
@@ -41,6 +29,7 @@ require('./routes/index.js')(app);
 require('./routes/account.js')(app);
 require('./routes/event.js')(app);
 require('./routes/post.js')(app);
+require('./routes/profile.js')(app);
 
 // initialize db connection
 // TODO: Use environment variable

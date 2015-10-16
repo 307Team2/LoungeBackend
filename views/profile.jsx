@@ -1,5 +1,6 @@
 var React = require('react');
 var ProfileWrapper = require('./layout.jsx');
+var Posts = require('./feed/posts.jsx');
 
 var Profile = React.createClass({
   render: function() {
@@ -7,40 +8,19 @@ var Profile = React.createClass({
       <ProfileWrapper page="profile">
         <div className="container">
           <div className="row">
+            <div className="col-sm-4 col-sm-offset-2">
+              <div className="panel">
+                <img className="img-thumbnail img-responsive" src={"/images/profile.png"}/> 
+                <h2>{this.props.user.firstname} {this.props.user.lastname}</h2>
+                <p>Age: {this.props.user.age}</p>
+                <p>Location: {this.props.user.location}</p>
+                <p>Organization: {this.props.user.organization}</p>
+                <p>Job Title: {this.props.user.title}</p>
+                <a href="/profile/edit"><button type="button" className="btn btn-default">Edit Profile</button></a>
+              </div>
+            </div>
             <div className="col-sm-4">
-              <div className="panel">
-                wat
-              </div>
-            </div>
-            <div className="col-sm-8">
-              <div className="panel">
-                wat
-              </div>
-            </div>
-          </div>
-          <div className="sidecar">
-            <img className="image" src={"/images/profile.jpg"}/> 
-            <h1>Miranda Mott</h1>
-            <p>Age: 21</p>
-            <p>Location: West Lafayette, IN</p>
-            <p>Organization: ITaP</p>
-            <p>Job Title: Web/Mobile App Intern</p>
-            <p><a className="btn" href="/profile/edit">Edit Profile</a></p>
-          </div>
-          <div className="content">
-            <h1>Posts</h1>
-            <hr />
-            <div className="post">
-              <h2>I'm loving Kansas City, but I'm really excited to be going back home for the weekend! :)</h2>
-              <h3>7:07 PM - 29 May 2015</h3>
-            </div>
-            <div className="post">
-              <h2>Made it to Kansas and all moved in for the summer! :)</h2>
-              <h3>10:22 PM - 16 May 2015</h3>
-            </div>
-            <div className="post">
-              <h2>So excited for the Purdue men's varsity bowling team to be heading to nationals tonight! Best of luck guys, and I wish I could come watch!</h2>
-              <h3>3:46 PM - 14 Apr 2015</h3>
+              <Posts posts={this.props.posts} />
             </div>
           </div>
         </div>

@@ -18,12 +18,13 @@
     }
   }
 
-  .post {
-    .post-content, .post-metadata {
-      margin-bottom: 0;
-    }
-    .post-metadata {
-      font-size: 0.8em;
-    }
+}
+
+.post {
+  .post-content, .post-metadata {
+    margin-bottom: 0;
+  }
+  .post-metadata {
+    font-size: 0.8em;
   }
 }
