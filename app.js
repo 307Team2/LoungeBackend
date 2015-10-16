@@ -30,7 +30,12 @@ app.use('/feed/', feed);
 
 // intialize app settings
 app.set('port', (process.env.PORT || 3000));
-app.set('mongoURI', (process.env.MONGO_URI || 'mongodb://localhost/test'));
+app.set('mongoURI', (process.env.MONGO_URI || 'mongodb://localhost/lounge'));
+
+// require routes
+require('./routes/index.js')(app);
+require('./routes/account.js')(app);
+require('./routes/event.js')(app);
 
 // initialize db connection
 // TODO: Use environment variable
