@@ -4,6 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var passport = require('passport');
 
 var app = express();
 
@@ -39,6 +40,26 @@ MongoDB.on('error', function(err) {
 MongoDB.once('open', function() {
     console.log('mongodb connection opened');
 });
+
+// initialize middleware for user auth
+
+app.use(express.static('public'));
+app.use(cookieParser);
+app.use(bodyParser);
+app.use(express.session({ secret: 'keyboard cat' }));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(app.router);
+
+// requires the model with Passport-Local Mongoose plugged in
+var User = require('./models/user');
+
+// use static authenticate method of model in LocalStrategy
+passport.use(User.createStrategy());
+
+// use static serialize and deserialize of model for passport session support
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 // start server
 app.listen(app.get('port'), function() {
