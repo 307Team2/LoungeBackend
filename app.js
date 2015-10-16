@@ -43,7 +43,6 @@ MongoDB.on('error', function(err) {
 MongoDB.once('open', function() {
     console.log('mongodb connection opened');
 });
-// mongoose.connect(app.get('mongoURI'));
 
 // start server
 app.listen(app.get('port'), function() {
