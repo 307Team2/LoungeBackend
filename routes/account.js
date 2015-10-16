@@ -98,7 +98,20 @@ module.exports = function(app) {
 
     /* GET reset email sent page. */
     app.get('/account/reset_email_sent', function(req, res, next) {
+console.log(req.user.username);
         res.render('account/reset_email_sent');
+        var sendgrid_api_key = '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';
+        var sendgrid  = require('sendgrid')(sendgrid_api_key);
+        var payload = {
+                to      : req.user.username,
+                from    : 'team@lounge-herokuapp.com',
+                subject : 'Password Reset',
+                text    : 'A password reset has been initiated for your account'
+        };
+        sendgrid.send(payload, function(err, json) {
+                if (err) { console.error(err); }
+                console.log(json);
+        });
     });
 
     /* GET reset password page. */
