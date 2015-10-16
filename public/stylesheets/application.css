@@ -165,10 +165,8 @@ body {
     font-weight: 300; }
   .container .new-event textarea {
     margin-bottom: 1em; }
-  .container .new-event input {
-    margin-bottom: 1em; }
-  .container .new-event button {
-    margin-right: 1em; }
+  .container .new-event .btn {
+    margin-top: 1em; }
   .container .event .panel-title {
     margin-bottom: 0.5em; }
     .container .event .panel-title a {
