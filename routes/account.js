@@ -19,7 +19,15 @@ module.exports = function(app) {
     });
 
     app.post('/account/signup', function(req, res, next) {
-        var newUser = new User({username: req.body.email, name: req.body.name});
+        var newUser = new User({
+            username: req.body.email,
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            age: req.body.age,
+            location: req.body.location,
+            organization: req.body.organization,
+            jobTitle: req.body.jobTitle
+        });
 
         User.register(newUser, req.body.password, function(err, user) {
             if (err) {
