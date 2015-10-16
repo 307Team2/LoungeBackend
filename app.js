@@ -4,6 +4,10 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var passport = require('passport');
+var session = require('express-session')
+var RedisStore = require('connect-redis')(session);
+var url = require('url');
 
 var app = express();
 
@@ -40,6 +44,39 @@ MongoDB.on('error', function(err) {
 MongoDB.once('open', function() {
     console.log('mongodb connection opened');
 });
+
+// initialize middleware for user auth
+
+app.use(express.static('public'));
+app.use(cookieParser);
+app.use(bodyParser);
+app.use(session({ secret: 'lounge-secret' }));
+app.use(passport.initialize());
+app.use(passport.session());
+
+// requires the model with Passport-Local Mongoose plugged in
+var User = require('./models/user');
+
+// use static authenticate method of model in LocalStrategy
+passport.use(User.createStrategy());
+
+// use static serialize and deserialize of model for passport session support
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+// initialize redis
+var redisUrl;
+var redisPassword;
+if (typeof process.env.REDISTOGO_URL === 'undefined') {
+	redisUrl = url.parse('redis://@127.0.0.1:6379/0');
+	redisPassword = 'evan';
+} else {
+	redisUrl = url.parse(process.env.REDISTOGO_URL);
+	redisPassword = 'NEEDTOSETREDISPASSWORD'
+}
+
+var redisHost = redisUrl.hostname;
+var redisPort = redisUrl.port;
 
 // start server
 app.listen(app.get('port'), function() {
