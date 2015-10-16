@@ -173,3 +173,7 @@ body {
     margin-bottom: 0.5em; }
     .container .event .panel-title a {
       text-decoration: none; }
+  .container .event-item .panel-title {
+    font-size: 2.5em; }
+  .container .event-item .panel-content h3 {
+    font-size: 1.5em; }

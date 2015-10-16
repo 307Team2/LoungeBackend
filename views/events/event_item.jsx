@@ -9,11 +9,10 @@ var EventItem = React.createClass({
           <div className="panel event-item">
             <div className="panel-body">
               <h1 className="panel-title">
-                <a href={"/eventTest"}>
-                  {this.props.event.name + " • " + this.props.event.date.toDateString()}
-                </a>
+                {this.props.event.name}
               </h1>
               <div className="panel-content">
+                <h3>{this.props.event.date.toDateString()}</h3>
                 <p>{this.props.event.description}</p>
               </div>
             </div>
