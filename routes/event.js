@@ -4,7 +4,6 @@ module.exports = function(app) {
 
     app.post('/events/create', function(req, res, next) {
 
-        // NOTE may need to use JSON.parse() here, not sure
         var newEvent = req.body;
 
         Event.create(newEvent, function(err, event) {
