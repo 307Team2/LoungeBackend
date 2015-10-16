@@ -1,0 +1,72 @@
+.profile {
+
+  background: #DDD;
+
+  .row {
+    .panel {
+      padding: 15px;
+    }
+  }
+
+  .sidecar {
+    color: white;
+    max-width: 25%;
+    text-align: center;
+    background-color: black;
+    line-height: 20px;
+    float: left;
+    margin-right: 20px;
+    padding: 5px;
+
+    .image {
+      max-width: 100%;
+      height: auto;
+      width: auto\9;
+    }
+
+    h1 {
+      font-size: 3em;
+      max-width: 100%;
+    }
+  }
+
+  .content {
+    background-color: #AD855C;
+    padding: 5px;
+    max-width: 100%;
+    height: auto;
+
+    h1 {
+      font-size: 4em;
+      text-align: center;
+      color: black;
+    }
+
+    hr {
+      display: block;
+      margin-top: 0.5em;
+      margin-bottom: 0.5em;
+      margin-left: auto;
+      margin-right: 20px;
+      border-style: inset;
+      border-width: 1px;
+      border-color: black;
+    }
+
+    .post {
+      border-radius: 15px;
+      background-color: #CCCCCC;
+      margin-right: 15px;
+
+      h2 {
+        font-size: 2em;
+        color: black;
+      }
+
+      h3 {
+        font-size: 1em;
+        color: black;
+      }
+    }
+  }
+}
