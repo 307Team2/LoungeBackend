@@ -3,8 +3,13 @@ var Schema = mongoose.Schema;
 var passportLocalMongoose = require('passport-local-mongoose');
 
 var User = new Schema({
-	name: String,
-	tier: String
+    firstName: String,
+    lastName: String,
+    age: Number,
+    location: String,
+    organization: String,
+    jobTitle: String,
+    tier: String
 });
 
 User.plugin(passportLocalMongoose);
