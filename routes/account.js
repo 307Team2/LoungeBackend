@@ -26,9 +26,7 @@ module.exports = function(app) {
                 console.log(err);
                 res.redirect('/account/signup');
             } else {
-                passport.authenticate('local')(req, res, function () {
-                    res.redirect('/');
-                });
+                res.redirect('/');
             }
         });
     });
