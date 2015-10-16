@@ -28,6 +28,7 @@ app.set('mongoURI', (process.env.MONGO_URI || 'mongodb://localhost/lounge'));
 require('./routes/index.js')(app);
 require('./routes/account.js')(app);
 require('./routes/event.js')(app);
+require('./routes/post.js')(app);
 
 // initialize db connection
 // TODO: Use environment variable
