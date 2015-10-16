@@ -12,4 +12,4 @@
 * Run `brew install redis`
 * Then run `ln -sfv /usr/local/opt/redis/*.plist ~/Library/LaunchAgents` so it will launch redis at login
 * Run `launchctl load ~/Library/LaunchAgents/homebrew.mxcl.redis.plist` to load redis right away 
-* Edit your `/usr/local/etc/redis.conf` file, uncommenting the file with `requirepass` and setting the password to `evanlounge`, e.g., `requirepass evanlounge`.
+* Edit your `/usr/local/etc/redis.conf` file, uncommenting the file with `requirepass` and setting the password to `evanlounge`, e.g., `requirepass evanlounge`. Additionally, set the port line to be `port 6380`.
