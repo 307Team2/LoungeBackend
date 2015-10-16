@@ -38,4 +38,20 @@ module.exports = function(app) {
             }
         });
     });
+
+    // Route for retrieving data of all events
+    app.get('/events/all', function(req, res, next) {
+
+        Event.find({}).exec(function(err, events) {
+            if (err) {
+                console.log(err);
+                res.sendStatus(500);
+            } else {
+                // not logging here since data might be massive
+
+                // TODO: Render template pls
+                res.send(events);
+            }
+        });
+    });
 };
