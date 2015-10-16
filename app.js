@@ -28,14 +28,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.set('port', (process.env.PORT || 3000));
 app.set('mongoURI', (process.env.MONGO_URI || 'mongodb://localhost/lounge'));
 
-// require routes
-require('./routes/index.js')(app);
-require('./routes/account.js')(app);
-require('./routes/events.js')(app);
-require('./routes/post.js')(app);
-require('./routes/profile.js')(app);
-require('./routes/feed.js')(app);
-
 // initialize db connection
 // TODO: Use environment variable
 var mongoose = require('mongoose');
@@ -46,6 +38,14 @@ MongoDB.on('error', function(err) {
 MongoDB.once('open', function() {
     console.log('mongodb connection opened');
 });
+
+// require routes
+require('./routes/index.js')(app);
+require('./routes/account.js')(app);
+require('./routes/events.js')(app);
+require('./routes/post.js')(app);
+require('./routes/profile.js')(app);
+require('./routes/feed.js')(app);
 
 // initialize middleware for user auth
 

@@ -1,3 +1,6 @@
+var passport = require('passport');
+var User = require('../models/user');
+
 module.exports = function(app) {
 
     /* GET sign up. */
@@ -13,12 +16,16 @@ module.exports = function(app) {
     app.post('/account/signup', function(req, res, next) {
 
         User.register(new User({email : req.body.email}), req.body.password, function(err, user) {
+        var newUser = new User({username: req.body.email, name: req.body.name});
+
+        User.register(newUser, req.body.password, function(err, user) {
             if (err) {
                     console.log(err);
                     res.redirect('/account/signup');
             } else {
                 passport.authenticate('local')(req, res, function () {
                     res.redirect('/');
+                    res.render('/account/login');
                 });
             }
         });

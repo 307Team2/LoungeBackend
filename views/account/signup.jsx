@@ -8,8 +8,8 @@ var SignUp = React.createClass({
         <div className="container">
           <div className="content">
             <h1>Join Lounge today.</h1>
-            <form action="/account/signup">
-              <input type="text" name="fullname" placeholder="Full Name" />
+            <form action="/account/signup" method="post">
+              <input type="text" name="name" placeholder="Full Name" />
               <br/>
               <input type="text" name="email" placeholder="Email" />
               <br/>
