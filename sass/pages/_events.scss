@@ -1,0 +1,41 @@
+.container {
+  max-width: 32em;
+
+  .new-event {
+    h2 {
+      font-size: 1.5em;
+    }
+    h3 {
+      font-size: 1em;
+      font-weight: 300;
+    }
+    textarea {
+      margin-bottom: 1em;
+    }
+    .btn {
+      margin-top: 1em;
+    }
+  }
+
+  .event {
+    .panel-title {
+      margin-bottom: 0.5em;
+
+      a {
+        text-decoration: none;
+      }
+    }
+  }
+
+  .event-item {
+    .panel-title {
+      font-size: 2.5em;
+    }
+
+    .panel-content {
+      h3 {
+        font-size: 1.5em;
+      }
+    }
+  }
+}

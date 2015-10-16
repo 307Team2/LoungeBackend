@@ -1,5 +1,5 @@
-h1 {
-  font-family: "Abril Fatface", cursive; }
+body {
+  background-color: #ddd; }
 
 .navbar-default {
   background-color: #333;
@@ -17,10 +17,10 @@ h1 {
     position: relative;
     top: 50vh;
     transform: translateY(-50%);
-    margin-left: 20em;
     color: white; }
     .homepage .content h1 {
-      font-size: 5em; }
+      font-size: 5em;
+      font-family: "Abril Fatface", cursive; }
 
 .begin-password-reset .content {
   text-align: center; }
@@ -154,3 +154,23 @@ h1 {
         text-align: center; }
         .edit-profile .container .content .fields .buttons .button {
           padding: 5px; }
+
+.container {
+  max-width: 32em; }
+  .container .new-event h2 {
+    font-size: 1.5em; }
+  .container .new-event h3 {
+    font-size: 1em;
+    font-weight: 300; }
+  .container .new-event textarea {
+    margin-bottom: 1em; }
+  .container .new-event .btn {
+    margin-top: 1em; }
+  .container .event .panel-title {
+    margin-bottom: 0.5em; }
+    .container .event .panel-title a {
+      text-decoration: none; }
+  .container .event-item .panel-title {
+    font-size: 2.5em; }
+  .container .event-item .panel-content h3 {
+    font-size: 1.5em; }

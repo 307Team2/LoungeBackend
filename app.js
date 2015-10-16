@@ -27,7 +27,7 @@ app.set('mongoURI', (process.env.MONGO_URI || 'mongodb://localhost/lounge'));
 // require routes
 require('./routes/index.js')(app);
 require('./routes/account.js')(app);
-require('./routes/event.js')(app);
+require('./routes/events.js')(app);
 require('./routes/post.js')(app);
 require('./routes/profile.js')(app);
 require('./routes/feed.js')(app);

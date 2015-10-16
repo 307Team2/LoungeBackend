@@ -7,6 +7,7 @@ module.exports = function(app) {
     app.post('/events/create', function(req, res, next) {
 
         var newEvent = req.body;
+        console.log(newEvent);
         newEvent.startDate = moment(newEvent.startDate).toDate();
 
         Event.create(newEvent, function(err, event) {
@@ -34,13 +35,13 @@ module.exports = function(app) {
                 console.log('Event found: ' + event);
 
                 // TODO: Render template pls
-                res.send(event);
+                res.render('events/event_item', {event: event});
             }
         });
     });
 
     // Route for retrieving data of all events
-    app.get('/events/all', function(req, res, next) {
+    app.get('/events', function(req, res, next) {
 
         Event.find({}).exec(function(err, events) {
             if (err) {
@@ -50,7 +51,7 @@ module.exports = function(app) {
                 // not logging here since data might be massive
 
                 // TODO: Render template pls
-                res.send(events);
+                res.render('events/event_feed', {events: events});
             }
         });
     });
