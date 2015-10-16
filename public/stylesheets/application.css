@@ -153,7 +153,13 @@
         .edit-profile .container .content .fields .buttons .button {
           padding: 5px; }
 
+body {
+  background-color: #f4f4f4; }
+
 .event-well {
   margin: 0 auto;
   max-width: 50em;
-  width: 90%; }
+  width: 90%;
+  padding: 0 2em;
+  background-color: #fff;
+  border-radius: 5px; }
