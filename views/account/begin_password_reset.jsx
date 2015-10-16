@@ -8,8 +8,11 @@ var BeginPasswordReset = React.createClass({
         <div className="container">
           <div className="content">
             <h1>Send password reset link</h1>
-            <p><input type="text" name="email" placeholder="Email" /></p>
-            <p><a className="btn" href="/account/reset_email_sent">Send</a></p>
+            <form>
+              <input type="text" name="email" placeholder="Email" />
+              <br/>
+              <input type="submit" value="Send" />
+            </form>
           </div>
         </div>
       </BeginPasswordResetWrapper>
