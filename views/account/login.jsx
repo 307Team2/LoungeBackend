@@ -8,8 +8,8 @@ var SignUp = React.createClass({
         <div className="container">
           <div className="content">
             <h1>Log in on this nice page.</h1>
-            <form>
-              <input type="text" name="email" placeholder="Email" />
+            <form action="/account/login" method="post">
+              <input type="text" name="username" placeholder="Email" />
               <br/>
               <input type="password" name="password" placeholder="Password" />
               <br/>
