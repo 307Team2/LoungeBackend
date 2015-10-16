@@ -7,7 +7,24 @@ module.exports = function(app) {
 
     /* GET sign up. */
     app.get('/account/signup', function(req, res, next) {
+        debugger;
         res.render('account/signup');
+    });
+
+    app.post('/account/signup', function(req, res, next) {
+
+        debugger;
+        User.register(new User({email : req.body.email}), req.body.password, function(err, user) {
+            if (err) {
+                    console.log(err);
+                    res.redirect('/account/signup');
+            } else {
+                passport.authenticate('local')(req, res, function () {
+                    debugger;
+                    res.redirect('/');
+                });
+            }
+        });
     });
 
     /* GET begin password reset page. */
