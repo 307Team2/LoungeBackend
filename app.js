@@ -5,7 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var passport = require('passport');
-var session = require('express-session')
+var session = require('express-session');
 var RedisStore = require('connect-redis')(session);
 var url = require('url');
 
@@ -39,6 +39,39 @@ MongoDB.once('open', function() {
     console.log('mongodb connection opened');
 });
 
+// initialize redis
+var redisUrl;
+var redisPassword;
+if (typeof process.env.REDISTOGO_URL === 'undefined') {
+	redisUrl = url.parse('redis://@127.0.0.1:6379/0');
+	redisPassword = 'foobar';
+} else {
+	redisUrl = url.parse(process.env.REDISTOGO_URL);
+	// this will be set later by the external redis service we use
+	redisPassword = 'NEEDTOSETREDISPASSWORD';
+}
+
+var redisHost = redisUrl.hostname;
+var redisPort = redisUrl.port;
+
+// initialize middleware for user auth
+app.use(express.static('public'));
+app.use(cookieParser());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(session({ 
+	resave: false,
+	store: new RedisStore({
+		host: redisHost,
+		port: redisPort,
+		pass: redisPassword
+	}),
+	saveUninitialized: false,
+	secret: 'lounge-secret'
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+
 // require routes
 require('./routes/index.js')(app);
 require('./routes/account.js')(app);
@@ -46,14 +79,6 @@ require('./routes/events.js')(app);
 require('./routes/post.js')(app);
 require('./routes/profile.js')(app);
 require('./routes/feed.js')(app);
-
-// initialize middleware for user auth
-
-app.use(express.static('public'));
-app.use(cookieParser);
-app.use(bodyParser);
-app.use(passport.initialize());
-app.use(passport.session());
 
 // requires the model with Passport-Local Mongoose plugged in
 var User = require('./models/user');
@@ -65,31 +90,6 @@ passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-// initialize redis
-var redisUrl;
-var redisPassword;
-if (typeof process.env.REDISTOGO_URL === 'undefined') {
-	redisUrl = url.parse('redis://@127.0.0.1:6379/0');
-	redisPassword = 'evan';
-} else {
-	redisUrl = url.parse(process.env.REDISTOGO_URL);
-	// this will be set later by the external redis service we use
-	redisPassword = 'NEEDTOSETREDISPASSWORD'
-}
-
-var redisHost = redisUrl.hostname;
-var redisPort = redisUrl.port;
-
-app.use(session({ 
-	resave: false,
-	store: new RedisStore({
-		host: config.redisHost,
-		port: config.redisPort,
-		pass: config.redisPassword
-	}),
-	saveUninitialized: false,
-	secret: 'lounge-secret' }));
-}));
 // start server
 app.listen(app.get('port'), function() {
     console.log('server listening on port', app.get('port'));
