@@ -10,6 +10,8 @@ module.exports = function(app) {
     // }
     app.post('/posts/create', function(req, res, next) {
 
+        // FIXME: Use req.user once authentication is implemented in order to set authorId
+
         var newPost = req.body;
 
         // add createdAt property
