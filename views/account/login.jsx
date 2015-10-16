@@ -8,9 +8,13 @@ var SignUp = React.createClass({
         <div className="container">
           <div className="content">
             <h1>Log in on this nice page.</h1>
-            <p><input type="text" name="email" placeholder="Email" /></p>
-            <p><input type="password" name="password" placeholder="Password" /></p>
-            <p><a className="btn" href="#">Log In</a></p>
+            <form action="/account/login" method="post">
+              <input type="text" name="username" placeholder="Email" />
+              <br/>
+              <input type="password" name="password" placeholder="Password" />
+              <br/>
+              <input type="submit" value="Log In" />
+            </form>
           </div>
         </div>
       </SignUpWrapper>
