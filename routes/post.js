@@ -1,4 +1,4 @@
-var Post = require('../models/event.js');
+var Post = require('../models/post.js');
 var moment = require('moment');
 
 module.exports = function(app) {
@@ -15,7 +15,7 @@ module.exports = function(app) {
         // add createdAt property
         newPost.createdAt = moment().toDate();
 
-        Post.create(newPost, function(err, event) {
+        Post.create(newPost, function(err, post) {
             if (err) {
                 console.log(err);
 
