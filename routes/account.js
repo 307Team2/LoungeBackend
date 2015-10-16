@@ -68,4 +68,14 @@ module.exports = function(app) {
     app.get('/account/reset_password', function(req, res, next) {
         res.render('account/reset_password');
     });
+
+    app.get('/account/profile/:userId', function(req, res, next) {
+        User.findOne({_id: req.params.userId}, function(err, user) {
+            if (err) {
+                console.log('Error finding user: ' + err);
+            } else {
+                res.render('profile', {user: user});
+            }
+        });
+    });
 };
