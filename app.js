@@ -43,8 +43,8 @@ MongoDB.once('open', function() {
 var redisUrl;
 var redisPassword;
 if (typeof process.env.REDISTOGO_URL === 'undefined') {
-	redisUrl = url.parse('redis://@127.0.0.1:6379/0');
-	redisPassword = 'foobar';
+	redisUrl = url.parse('redis://@127.0.0.1:6380/0');
+	redisPassword = 'evanlounge';
 } else {
 	redisUrl = url.parse(process.env.REDISTOGO_URL);
 	// this will be set later by the external redis service we use
