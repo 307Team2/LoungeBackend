@@ -17,10 +17,20 @@ var EventFeed = React.createClass({
   render: function() {
     return (
       <LoungeWrapper title={this.props.title} page="events">
-        <div className="event-well">
-          <div className="event-nav">
-            <h1>Events</h1>
-            <div className="event-creation"></div>
+        <div className="container">
+          <div className="event-creation">
+            <div className="panel new-event">
+              <div className="panel-body">
+                <h2 className="panel-title">Create a new event</h2>
+                <h3 className="panel-label">What's your event called?</h3>
+                <input type="text" className="form-control" placeholder="My awesome event name" />
+                <h3 className="panel-label">What's your event about?</h3>
+                <textarea type="text" className="form-control" placeholder="My awesome event description" />
+                <h3 className="panel-label">When's your event?</h3>
+                <input type="date" className="form-control" />
+                <button type="button" className="btn btn-success">Create Event</button>
+              </div>
+            </div>
           </div>
           <div className="event-panels">
             {this.getPanels()}

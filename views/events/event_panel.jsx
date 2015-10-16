@@ -3,10 +3,17 @@ var React = require('react');
 var EventPanel = React.createClass({
   render: function() {
     return (
-      <div className="event-panel">
-        <a href={"/eventTest"}><h1>{this.props.event.name}</h1></a>
-        <h2>{this.props.event.date.getDate()}</h2>
-        <p>{this.props.event.description}</p>
+      <div className="panel event">
+        <div className="panel-body">
+          <h1 className="panel-title">
+            <a href={"/eventTest"}>
+              {this.props.event.name + " • " + this.props.event.date.toDateString()}
+            </a>
+          </h1>
+          <div className="panel-content">
+            <p>{this.props.event.description}</p>
+          </div>
+        </div>
       </div>
     );
   }
