@@ -31,6 +31,16 @@ module.exports = function(app) {
         });
     });
 
+    // Temporary route for testing that authentication works
+    app.get('/account/usersOnly', function(req, res, next) {
+        if (req.user) {
+            res.send('Welcome!');
+        } else {
+            debugger;
+            res.send('Sorry, users only.');
+        }
+    });
+
     /* GET begin password reset page. */
     app.get('/account/begin_password_reset', function(req, res, next) {
         res.render('account/begin_password_reset');
