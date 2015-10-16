@@ -31,4 +31,14 @@ module.exports = function(app) {
             }
         });
     });
+
+    app.get('/posts/all', function(req, res, next) {
+
+        // might want to limit posts to certain time period
+        Post.find().exec(function(err, posts) {
+
+            // TODO: Render template
+            res.send(posts);
+        });
+    });
 };
