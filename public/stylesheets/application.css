@@ -2,9 +2,13 @@ h1 {
   font-family: "Abril Fatface", cursive; }
 
 .navbar-default {
-  background-color: #ECF0F1;
+  background-color: #333;
   border: none;
   border-radius: 0; }
+  .navbar-default .navbar-brand {
+    color: #FFFFFF; }
+    .navbar-default .navbar-brand:hover {
+      color: #D2D2D2; }
 
 .homepage {
   background: url("/images/cover-background.jpg");
@@ -45,3 +49,16 @@ h1 {
 
 .feed {
   background: #DDD; }
+  .feed .container {
+    max-width: 32em; }
+  .feed .new-post h2 {
+    font-size: 1.5em;
+    margin-bottom: 0.5em; }
+  .feed .new-post textarea {
+    margin-bottom: 1em; }
+  .feed .new-post button {
+    margin-right: 1em; }
+  .feed .post .post-content, .feed .post .post-metadata {
+    margin-bottom: 0; }
+  .feed .post .post-metadata {
+    font-size: 0.8em; }

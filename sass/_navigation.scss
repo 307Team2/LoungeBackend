@@ -1,5 +1,13 @@
 .navbar-default {
-  background-color: #ECF0F1;
+  background-color: #333;
   border: none;
   border-radius: 0;
+  
+  .navbar-brand {
+    color: #FFFFFF;
+    &:hover {
+      color: #D2D2D2;
+    }
+  }
+
 }

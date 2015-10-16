@@ -1,3 +1,29 @@
 .feed {
   background: #DDD;
+
+  .container {
+    max-width: 32em;
+  }
+
+  .new-post {
+    h2 {
+      font-size: 1.5em;
+      margin-bottom: 0.5em;
+    }
+    textarea {
+      margin-bottom: 1em;
+    }
+    button {
+      margin-right: 1em;
+    }
+  }
+
+  .post {
+    .post-content, .post-metadata {
+      margin-bottom: 0;
+    }
+    .post-metadata {
+      font-size: 0.8em;
+    }
+  }
 }

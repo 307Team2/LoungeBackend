@@ -5,7 +5,7 @@ var router = express.Router();
 router.get('/', function(req, res, next) {
   res.render('feed/index', {
     title: 'Lounge',
-    feedData: [
+    posts: [
       {
         content: "This is a test post",
         timestamp: Date.now(),
@@ -15,7 +15,7 @@ router.get('/', function(req, res, next) {
         }
       },
       {
-        content: "This is a test post",
+        content: "WUBBALUBBADUBDUB",
         timestamp: Date.now(),
         author: {
           firstname: "Roy",
@@ -23,7 +23,79 @@ router.get('/', function(req, res, next) {
         }
       },
       {
+        content: "This is another test post",
+        timestamp: Date.now(),
+        author: {
+          firstname: "Smevron",
+          lastname: "James"
+        }
+      },
+      {
         content: "This is a test post",
+        timestamp: Date.now(),
+        author: {
+          firstname: "Ben",
+          lastname: "Alderfer"
+        }
+      },
+      {
+        content: "WUBBALUBBADUBDUB",
+        timestamp: Date.now(),
+        author: {
+          firstname: "Roy",
+          lastname: "Fu"
+        }
+      },
+      {
+        content: "This is another test post",
+        timestamp: Date.now(),
+        author: {
+          firstname: "Smevron",
+          lastname: "James"
+        }
+      },
+      {
+        content: "This is a test post",
+        timestamp: Date.now(),
+        author: {
+          firstname: "Ben",
+          lastname: "Alderfer"
+        }
+      },
+      {
+        content: "WUBBALUBBADUBDUB",
+        timestamp: Date.now(),
+        author: {
+          firstname: "Roy",
+          lastname: "Fu"
+        }
+      },
+      {
+        content: "This is another test post",
+        timestamp: Date.now(),
+        author: {
+          firstname: "Smevron",
+          lastname: "James"
+        }
+      },
+      {
+        content: "This is a test post",
+        timestamp: Date.now(),
+        author: {
+          firstname: "Ben",
+          lastname: "Alderfer"
+        }
+      },
+      {
+        content: "WUBBALUBBADUBDUB",
+        timestamp: Date.now(),
+        author: {
+          firstname: "Roy",
+          lastname: "Fu"
+        }
+      },
+      {
+        content: "This is another test post",
         timestamp: Date.now(),
         author: {
           firstname: "Smevron",
