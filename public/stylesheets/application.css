@@ -17,7 +17,6 @@ body {
     position: relative;
     top: 50vh;
     transform: translateY(-50%);
-    margin-left: 20em;
     color: white; }
     .homepage .content h1 {
       font-size: 5em;
