@@ -3,6 +3,7 @@ var moment = require('moment');
 
 module.exports = function(app) {
 
+    // Route for creating events
     app.post('/events/create', function(req, res, next) {
 
         var newEvent = req.body;
@@ -16,6 +17,24 @@ module.exports = function(app) {
             } else {
                 console.log('New event created: ' + event);
                 res.sendStatus(201);
+            }
+        });
+    });
+
+    // Route for retrieving data of single event
+    app.get('/events/:id', function(req, res, next) {
+
+        var eventId = req.params.id;
+
+        Event.findOne({_id: eventId}).exec(function(err, event) {
+            if (err) {
+                console.log(err);
+                res.sendStatus(500);
+            } else {
+                console.log('Event found: ' + event);
+
+                // TODO: Render template pls
+                res.send(event);
             }
         });
     });
