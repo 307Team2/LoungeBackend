@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "DEBUG=LoungeWeb node ./bin/www"
+    "start": "npm install && node app"
   },
   "dependencies": {
     "body-parser": "^1.14.1",
