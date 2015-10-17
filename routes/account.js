@@ -19,7 +19,15 @@ module.exports = function(app) {
     });
 
     app.post('/account/signup', function(req, res, next) {
-        var newUser = new User({username: req.body.email, name: req.body.name});
+        var newUser = new User({
+            username: req.body.email,
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            age: req.body.age,
+            location: req.body.location,
+            organization: req.body.organization,
+            jobTitle: req.body.jobTitle
+        });
 
         User.register(newUser, req.body.password, function(err, user) {
             if (err) {
@@ -59,5 +67,15 @@ module.exports = function(app) {
     /* GET reset password page. */
     app.get('/account/reset_password', function(req, res, next) {
         res.render('account/reset_password');
+    });
+
+    app.get('/account/profile/:userId', function(req, res, next) {
+        User.findOne({_id: req.params.userId}, function(err, user) {
+            if (err) {
+                console.log('Error finding user: ' + err);
+            } else {
+                res.render('profile', {user: user});
+            }
+        });
     });
 };
