@@ -122,7 +122,7 @@ module.exports = function(app) {
               to      : req.body.email,
               from    : 'team@lounge-herokuapp.com',
               subject : 'Password Reset',
-              text    : 'A password reset has been initiated for your account'
+              text    : 'A password reset has been initiated for your account. Go to http://localhost:3000/account/password_reset to reset your password!'
       };
       sendgrid.send(payload, function(err, json) {
               if (err) { console.error(err); }
