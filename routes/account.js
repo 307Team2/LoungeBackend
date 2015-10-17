@@ -12,7 +12,7 @@ module.exports = function(app) {
 
         if (typeof req.user.tier === 'undefined') {
 
-            redirect('/account/updateMembership');
+            res.redirect('/account/updateMembership');
         } else {
 
             // NOTE need to redirect, then re-render so that we can lookup post data + render it into the template
