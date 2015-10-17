@@ -39,7 +39,28 @@ module.exports = function(app) {
 
             var templateData = {
                 title: 'Lounge',
-                posts: posts
+                posts: [{
+                    author: {
+                        firstname: "Ben",
+                        lastname: "Alderfer"
+                    },
+                    timestamp: Date.now(),
+                    content: "This is an example post."
+                },{
+                    author: {
+                        firstname: "Ben",
+                        lastname: "Alderfer"
+                    },
+                    timestamp: Date.now(),
+                    content: "This is an example post."
+                },{
+                    author: {
+                        firstname: "Ben",
+                        lastname: "Alderfer"
+                    },
+                    timestamp: Date.now(),
+                    content: "This is an example post."
+                }]
             };
 
             res.render('feed/index', templateData);
