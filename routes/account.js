@@ -9,8 +9,16 @@ module.exports = function(app) {
     });
 
     app.post('/account/login', passport.authenticate('local'), function(req, res, next) {
-        // TODO: Change this redirect
-        res.redirect('/account/usersOnly');
+
+        if (typeof req.user.tier === 'undefined') {
+
+            redirect('/account/updateMembership');
+        } else {
+
+            // NOTE need to redirect, then re-render so that we can lookup post data + render it into the template
+            // ... -> can't redirect with template data
+            res.redirect('posts/all');
+        }
     });
 
     /* GET sign up. */
@@ -68,9 +76,14 @@ module.exports = function(app) {
         if (req.user) {
             res.send('Welcome!');
         } else {
-            debugger;
             res.send('Sorry, users only.');
         }
+    });
+
+    app.get('/account/updateMembership', function(req, res, next) {
+
+        // FIXME: This needs to render a template that shows the user's current membership tier + has a Stripe payment button for adding/updating membership
+        res.send('Update me!');
     });
 
     /* GET begin password reset page. */

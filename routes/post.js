@@ -37,8 +37,12 @@ module.exports = function(app) {
         // might want to limit posts to certain time period
         Post.find().exec(function(err, posts) {
 
-            // TODO: Render template
-            res.send(posts);
+            var templateData = {
+                title: 'Lounge',
+                posts: posts
+            };
+
+            res.render('feed/index', templateData);
         });
     });
 };
