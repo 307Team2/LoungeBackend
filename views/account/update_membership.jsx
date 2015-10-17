@@ -6,7 +6,7 @@ var UpdateMembership = React.createClass({
   getStripeButton: function(amount, tier) {
     if (this.props.user.tier !== tier.toLowerCase()) {
       return (
-        <form action="" method="POST">
+        <form action={"/posts/all"} method="GET">
           <script
             src="https://checkout.stripe.com/checkout.js"
             className="stripe-button"
