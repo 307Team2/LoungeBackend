@@ -48,7 +48,7 @@ if (typeof process.env.REDISTOGO_URL === 'undefined') {
 } else {
 	redisUrl = url.parse(process.env.REDISTOGO_URL);
 	// this will be set later by the external redis service we use
-	redisPassword = process.env.REDISTOGO_PASS;
+	redisPassword = 'NEEDTOSETREDISPASSWORD';
 }
 
 var redisHost = redisUrl.hostname;

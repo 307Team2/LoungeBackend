@@ -81,9 +81,9 @@ module.exports = function(app) {
     });
 
     app.get('/account/updateMembership', function(req, res, next) {
-        console.log(req.user);
+
         // FIXME: This needs to render a template that shows the user's current membership tier + has a Stripe payment button for adding/updating membership
-        res.render('account/update_membership', {user: req.user});
+        res.send('Update me!');
     });
 
     /* GET begin password reset page. */
