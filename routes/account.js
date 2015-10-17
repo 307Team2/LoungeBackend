@@ -85,10 +85,6 @@ module.exports = function(app) {
         res.render('account/update_membership', {user: req.user});
     });
 
-    app.post('/account/updateMembership', function(req, res, next) {
-        res.redirect('posts/index');
-    });
-
     /* GET begin password reset page. */
     app.get('/account/begin_password_reset', function(req, res, next) {
         res.render('account/begin_password_reset');
