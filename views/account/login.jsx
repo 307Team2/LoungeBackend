@@ -15,6 +15,7 @@ var SignUp = React.createClass({
               <br/>
               <input type="submit" value="Log In" />
             </form>
+            <a href="/account/begin_password_reset">Forgot your password?</a>
           </div>
         </div>
       </SignUpWrapper>

@@ -10,9 +10,9 @@ var ResetPassword = React.createClass({
             <h1>Reset your password</h1>
             <p>Strong passwords include numbers, letters, and punctuation marks.</p>
             <p>Type your new password</p>
-            <p><input type="text" name="password1" /></p>
+            <p><input type="password" name="password1" /></p>
             <p>Type your new password one more time</p>
-            <p><input type="text" name="password2" /></p>
+            <p><input type="password" name="password2" /></p>
             <p><a className="btn" href="/account/password_reset_complete">Submit</a></p>
           </div>
         </div>
