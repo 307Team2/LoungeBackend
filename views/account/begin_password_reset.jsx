@@ -8,7 +8,7 @@ var BeginPasswordReset = React.createClass({
         <div className="container">
           <div className="content">
             <h1>Send password reset link</h1>
-            <form action="/account/reset_email_sent" method="GET">
+            <form action="/account/reset_email_sent" method="POST">
               <input type="text" name="email" placeholder="Email" />
               <br/>
               <input type="submit" value="Send" />
