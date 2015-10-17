@@ -36,7 +36,6 @@ module.exports = function(app) {
         if (req.user) {
             res.send('Welcome!');
         } else {
-            debugger;
             res.send('Sorry, users only.');
         }
     });
