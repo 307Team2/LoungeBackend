@@ -20,6 +20,7 @@ var EditProfile = React.createClass({
                   <p>Job Title:</p>
                   <input name="jobTitle" type="text" defaultValue={this.props.user.jobTitle} />
                   <br />
+                  <br />
                   <input type="submit" className="btn btn-success" value="Submit Changes" />
                 </form>
               </div>

@@ -64,7 +64,6 @@ module.exports = function(app) {
 
         var updatedUser = req.body;
         delete updatedUser.id;
-        console.log(req.body);
         // this will just overwrite all of the fields on the user record (all of which should be sent from the front end, otherwise the values will become null)
         User.where({_id: req.user.id}).update(updatedUser, function(err, user) {
             res.redirect('/account/update');
