@@ -39,6 +39,30 @@ module.exports = function(app) {
         });
     });
 
+    app.get('/account/update', function(req, res, next) {
+        if (req.user) {
+
+            // FIXME: This template is not rendering the values in the form as it should
+            res.render('edit-profile', {user: req.user});
+        } else {
+
+            // send unauthorized status code
+            res.sendStatus(401);
+        }
+    });
+
+    // expects form data in the form of the user model
+    app.post('/account/update', function(req, res, next) {
+
+        var updatedUser = req.body;
+        delete updatedUser.id;
+
+        // this will just overwrite all of the fields on the user record (all of which should be sent from the front end, otherwise the values will become null)
+        User.where({_id: req.user.id}).update(updatedUser, function(err, user) {
+            res.redirect('/account/update');
+        });
+    });
+
     // Temporary route for testing that authentication works
     app.get('/account/usersOnly', function(req, res, next) {
         if (req.user) {
