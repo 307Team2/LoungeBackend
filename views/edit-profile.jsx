@@ -9,6 +9,7 @@ var EditProfile = React.createClass({
           <div className="row">
             <div className="col-sm-4 col-sm-offset-2">
               <div className="panel">
+                <a href={"/account/profile/" + this.props.user.id}>Back to profile</a>
                 <h2>{this.props.user.firstName} {this.props.user.lastName}</h2>
                 <form action="/account/update" method="POST">
                   <p>Age:</p>

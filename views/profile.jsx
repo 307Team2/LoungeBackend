@@ -14,6 +14,7 @@ var Profile = React.createClass({
                 <p>Location: {this.props.user.location}</p>
                 <p>Organization: {this.props.user.organization}</p>
                 <p>Job Title: {this.props.user.jobTitle}</p>
+                <a href="/account/update">Update your profile</a>
               </div>
             </div>
           </div>
