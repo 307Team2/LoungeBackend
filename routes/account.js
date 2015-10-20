@@ -1,5 +1,6 @@
 var passport = require('passport');
 var User = require('../models/user');
+var accountServices = require('../services/accountServices');
 
 module.exports = function(app) {
 
@@ -27,17 +28,7 @@ module.exports = function(app) {
     });
 
     app.post('/account/signup', function(req, res, next) {
-        var newUser = new User({
-            username: req.body.email,
-            firstName: req.body.firstName,
-            lastName: req.body.lastName,
-            age: req.body.age,
-            location: req.body.location,
-            organization: req.body.organization,
-            jobTitle: req.body.jobTitle
-        });
-
-        User.register(newUser, req.body.password, function(err, user) {
+        accountServices.createUser(req.body, function(err, user) {
             if (err) {
                 console.log(err);
                 res.redirect('/account/signup');
