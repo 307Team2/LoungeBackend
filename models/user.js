@@ -9,7 +9,8 @@ var User = new Schema({
     location: String,
     organization: String,
     jobTitle: String,
-    tier: String
+    tier: String,
+    resetPasswordToken: String
 });
 
 User.plugin(passportLocalMongoose);

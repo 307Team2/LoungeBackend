@@ -99,42 +99,67 @@ module.exports = function(app) {
     app.get('/account/reset_email_sent', function(req, res, next) {
         console.log(req.body);
         res.render('account/reset_email_sent');
-        // var sendgrid_api_key = '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';
-        // var sendgrid  = require('sendgrid')(sendgrid_api_key);
-        // var payload = {
-        //         to      : req.user.username,
-        //         from    : 'team@lounge-herokuapp.com',
-        //         subject : 'Password Reset',
-        //         text    : 'A password reset has been initiated for your account'
-        // };
-        // sendgrid.send(payload, function(err, json) {
-        //         if (err) { console.error(err); }
-        //         console.log(json);
-        // });
     });
 
     app.post('/account/reset_email_sent', function(req, res, next) {
-      console.log(req.body);
-      res.render('account/reset_email_sent');
-      var sendgrid_api_key = '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';
-      var sendgrid  = require('sendgrid')(sendgrid_api_key);
-      var payload = {
+      var async = require('async');
+      var crypto = require('crypto');
+      async.waterfall([
+        function(done) {
+            crypto.randomBytes(20, function(err, buf) {
+                var token = buf.toString('hex');
+                done(err, token);
+            });
+        },
+        function(token, done) {
+            User.findOne({ name: req.body.username }, function(err, user) {
+                if (!user) {
+                    console.log("User not found for password reset");
+                    return res.redirect('/account/begin_password_reset');
+                }
+                
+                user.resetPasswordToken = token;
+                user.save(function(err) {
+                    done(err, token, user);
+                });
+            });
+        },
+        function(token, user, done) {
+            res.render('account/reset_email_sent');
+            var sendgrid_api_key = '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';
+            var sendgrid  = require('sendgrid')(sendgrid_api_key);
+            var payload = {
               to      : req.body.email,
               from    : 'team@lounge-herokuapp.com',
               subject : 'Password Reset',
-              text    : 'A password reset has been initiated for your account. Go to http://localhost:3000/account/password_reset to reset your password!'
-      };
-      sendgrid.send(payload, function(err, json) {
+              text    : 'A password reset has been initiated for your account. Go to http://' + req.headers.host + '/account/reset_password/' + token + '\n to reset your password!'
+            };
+            sendgrid.send(payload, function(err, json) {
               if (err) { console.error(err); }
               console.log(json);
-      });
+            });
+        }
+        ], function(err) {
+            if (err) return next(err);
+            return res.redirect('/account/begin_password_reset');
+        });
     });
 
     /* GET reset password page. */
-    app.get('/account/reset_password', function(req, res, next) {
+    app.get('/account/reset_password/:token', function(req, res, next) {
         res.render('account/reset_password');
     });
 
+    app.post('/account/reset_password/:token', function(req, res) {
+        User.findOne({ resetPasswordToken: req.params.token}, function(err, user) {
+            if (!user) {
+                return res.redirect('/account/begin_password_reset');
+            }
+            console.log(req.body.password);
+            user.password = req.body.password;
+            user.resetPasswordToken = undefined;
+       });
+    });
     app.get('/account/profile/:userId', function(req, res, next) {
         User.findOne({_id: req.params.userId}, function(err, user) {
             if (err) {
