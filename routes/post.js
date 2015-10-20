@@ -35,8 +35,9 @@ module.exports = function(app) {
     app.get('/posts/all', function(req, res, next) {
 
         // might want to limit posts to certain time period
-        Post.find().exec(function(err, posts) {
+        // Post.find().exec(function(err, posts) {
 
+        // });
             var templateData = {
                 title: 'Lounge',
                 posts: [{
@@ -64,6 +65,5 @@ module.exports = function(app) {
             };
 
             res.render('feed/index', templateData);
-        });
     });
 };
