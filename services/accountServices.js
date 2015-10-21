@@ -19,3 +19,11 @@ accountServices.createUser = function(userData, cb) {
         cb(err, user);
     });
 };
+
+accountServices.updateUser = function(userId, updatedData, cb) {
+
+    // this will just overwrite all of the fields on the user record (all of which should be sent from the front end, otherwise the values will become null)
+    User.where({_id: userId}).update(updatedData, function(err, user) {
+        cb(err, user);
+    });
+};

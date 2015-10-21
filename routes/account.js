@@ -53,10 +53,14 @@ module.exports = function(app) {
     // expects form data in the form of the user model
     app.post('/account/update', function(req, res, next) {
 
-        var updatedUser = req.body;
-        delete updatedUser.id;
-        // this will just overwrite all of the fields on the user record (all of which should be sent from the front end, otherwise the values will become null)
-        User.where({_id: req.user.id}).update(updatedUser, function(err, user) {
+        var updatedData = req.body;
+        delete updatedData.id;
+
+        accountServices.updateUser(req.user.id, updatedData, function(err, user) {
+            if (err) {
+                console.log('Error updating user: ' + user);
+            }
+
             res.redirect('/account/update');
         });
     });
