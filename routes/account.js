@@ -65,15 +65,6 @@ module.exports = function(app) {
         });
     });
 
-    // Temporary route for testing that authentication works
-    app.get('/account/usersOnly', function(req, res, next) {
-        if (req.user) {
-            res.send('Welcome!');
-        } else {
-            res.send('Sorry, users only.');
-        }
-    });
-
     app.get('/account/updateMembership', function(req, res, next) {
         console.log(req.user);
         // FIXME: This needs to render a template that shows the user's current membership tier + has a Stripe payment button for adding/updating membership
