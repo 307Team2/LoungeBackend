@@ -122,7 +122,7 @@ module.exports = function(app) {
     });
 
     app.get('/account/profile/:userId', function(req, res, next) {
-        User.findOne({_id: req.params.userId}, function(err, user) {
+        accountServices.findUser(req.params.userId, function(err, user) {
             if (err) {
                 console.log('Error finding user: ' + err);
             } else {

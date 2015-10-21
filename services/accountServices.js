@@ -27,3 +27,9 @@ accountServices.updateUser = function(userId, updatedData, cb) {
         cb(err, user);
     });
 };
+
+accountServices.findUser = function(userId, cb) {
+    User.findOne({_id: userId}, function(err, user) {
+        cb(err, user);
+    });
+};
