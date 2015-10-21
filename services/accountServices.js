@@ -2,8 +2,6 @@ var User = require('../models/user');
 
 var accountServices = {};
 
-module.exports = accountServices;
-
 accountServices.createUser = function(userData, cb) {
     var newUser = new User({
         username: userData.email,
@@ -33,3 +31,5 @@ accountServices.findUser = function(userId, cb) {
         cb(err, user);
     });
 };
+
+module.exports = accountServices;
