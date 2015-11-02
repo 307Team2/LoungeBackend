@@ -20,7 +20,7 @@ module.exports = function(app) {
 
     // Route for retrieving data of single event
     app.get('/events/:id', function(req, res, next) {
-        eventServices.findOneEvent(req.params, function(err, event) {
+        eventServices.findOneEvent(req.params.id, function(err, event) {
             if (err) {
                 console.log(err);
                 res.sendStatus(500);
