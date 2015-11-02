@@ -12,8 +12,7 @@ eventServices.createEvent = function(eventData, cb) {
     });
 };
 
-eventServices.findOneEvent = function(eventData, cb) {
-    var eventId = eventData.id;
+eventServices.findOneEvent = function(eventId, cb) {
     Event.findOne({_id: eventId}).exec(function(err, event) {
         cb(err, event);
     });
