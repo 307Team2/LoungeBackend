@@ -11,13 +11,7 @@ module.exports = function(app) {
     app.post('/posts/create', function(req, res, next) {
 
         // FIXME: Use req.user once authentication is implemented in order to set authorId
-
-        var newPost = req.body;
-
-        // add createdAt property
-        newPost.createdAt = moment().toDate();
-
-        Post.create(newPost, function(err, post) {
+        postServices.createPost(req.body, function(err, post) {
             if (err) {
                 console.log(err);
 
@@ -35,7 +29,7 @@ module.exports = function(app) {
     app.get('/posts/all', function(req, res, next) {
 
         // might want to limit posts to certain time period
-        Post.find().exec(function(err, posts) {
+        postServices.findAllPosts(function(err, posts) {
 
             var templateData = {
                 title: 'Lounge',
