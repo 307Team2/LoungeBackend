@@ -3,8 +3,7 @@ var moment = require('moment');
 
 var postServices = {};
 
-postServices.createPost = function(postData, cb) {
-	var newPost = postData;
+postServices.createPost = function(newPost, cb) {
 	newPost.createdAt = moment().toDate();
 	Post.create(newPost, function(err, post) {
 		cb(err, post);
