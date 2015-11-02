@@ -10,7 +10,7 @@ postServices.createPost = function(newPost, cb) {
 	});
 };
 
-postServices.findPost = function(cb) {
+postServices.findAllPosts = function(cb) {
 	Post.find().exec(function(err, posts) {
 		cb(err, posts);
 	});
