@@ -26,6 +26,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // intialize app settings
 app.set('port', (process.env.PORT || 3000));
+app.set('superSecret', 'wubbalubbadubdub');
 app.set('mongoURI', (process.env.MONGO_URI || 'mongodb://localhost/lounge'));
 
 // initialize db connection
@@ -80,6 +81,14 @@ var User = require('./models/user');
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+
+app.use(function (req, res, next) {
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8888');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+  res.setHeader('Access-Control-Allow-Credentials', true);
+  next();
+});
 
 // require routes
 require('./routes/index.js')(app);

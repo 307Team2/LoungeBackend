@@ -1,4 +1,5 @@
 var passport = require('passport');
+var jwt = require('jsonwebtoken');
 var User = require('../models/user');
 
 module.exports = function(app) {
@@ -9,16 +10,15 @@ module.exports = function(app) {
     });
 
     app.post('/account/login', passport.authenticate('local'), function(req, res, next) {
+        
+        var token = jwt.sign(req.user, app.get('superSecret'), {
+          expiresInMinutes: 1440 // expires in 24 hours
+        });
 
-        if (typeof req.user.tier === 'undefined') {
-
-            res.redirect('/account/updateMembership');
-        } else {
-
-            // NOTE need to redirect, then re-render so that we can lookup post data + render it into the template
-            // ... -> can't redirect with template data
-            res.redirect('posts/all');
-        }
+        res.json({
+            user: req.user,
+            token: token
+        });
     });
 
     /* GET sign up. */
@@ -27,6 +27,7 @@ module.exports = function(app) {
     });
 
     app.post('/account/signup', function(req, res, next) {
+
         var newUser = new User({
             username: req.body.email,
             firstName: req.body.firstName,
@@ -39,10 +40,19 @@ module.exports = function(app) {
 
         User.register(newUser, req.body.password, function(err, user) {
             if (err) {
-                console.log(err);
-                res.redirect('/account/signup');
+                res.json({
+                    error: err
+                });
             } else {
-                res.redirect('/');
+                passport.authenticate('local')(req, res, function() {
+                    var token = jwt.sign(req.user, app.get('superSecret'), {
+                      expiresInMinutes: 1440 // expires in 24 hours
+                    });
+                    res.json({
+                        user: req.user,
+                        token: token
+                    });
+                });
             }
         });
     });
