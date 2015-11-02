@@ -11,9 +11,8 @@ module.exports = function(app) {
     });
 
     app.post('/account/login', passport.authenticate('local'), function(req, res, next) {
-        
         var token = jwt.sign(req.user, app.get('superSecret'), {
-          expiresInMinutes: 1440 // expires in 24 hours
+          expiresIn: 86400 // expires in 24 hours
         });
 
         res.json({
@@ -28,20 +27,20 @@ module.exports = function(app) {
     });
 
     app.post('/account/signup', function(req, res, next) {
+
         accountServices.createUser(req.body, function(err, user) {
             if (err) {
+                console.log(err);
                 res.json({
                     error: err
                 });
             } else {
-                passport.authenticate('local')(req, res, function() {
-                    var token = jwt.sign(req.user, app.get('superSecret'), {
-                      expiresInMinutes: 1440 // expires in 24 hours
-                    });
-                    res.json({
-                        user: req.user,
-                        token: token
-                    });
+                var token = jwt.sign(user, app.get('superSecret'), {
+                  expiresIn: 86400 // expires in 24 hours
+                });
+                res.json({
+                    user: user,
+                    token: token
                 });
             }
         });
