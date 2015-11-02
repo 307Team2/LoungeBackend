@@ -29,7 +29,7 @@ module.exports = function(app) {
     app.get('/posts/all', function(req, res, next) {
 
         // might want to limit posts to certain time period
-        postServices.findAllPosts(function(err, posts)) {
+        postServices.findAllPosts(function(err, posts) {
 
             var templateData = {
                 title: 'Lounge',
