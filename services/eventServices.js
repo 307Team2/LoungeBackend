@@ -1,4 +1,5 @@
 var Event = require('../models/event.js');
+var moment = require('moment');
 
 var eventServices = {};
 
