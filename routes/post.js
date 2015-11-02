@@ -43,6 +43,6 @@ module.exports = function(app) {
             };
 
             res.render('feed/index', templateData);
-         });
+        });
     });
 };
