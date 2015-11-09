@@ -12,7 +12,7 @@ var url = require('url');
 var app = express();
 
 app.use(function (req, res, next) {
-  res.setHeader('Access-Control-Allow-Origin', process.env.LOUNGE_WEB_ROOT || 'http://localhost:8888');
+  res.setHeader('Access-Control-Allow-Origin', process.env.NODE_ENV === 'production' ? 'http://lounge-web.herokuapp.com' : 'http://localhost:8888');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
   res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type,Authorization');
   res.setHeader('Access-Control-Allow-Credentials', true);
