@@ -6,6 +6,7 @@
     "start": "npm install && node app"
   },
   "dependencies": {
+    "async": "^1.5.0",
     "body-parser": "^1.14.1",
     "connect-redis": "^3.0.1",
     "cookie-parser": "^1.4.0",
