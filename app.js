@@ -12,8 +12,7 @@ var url = require('url');
 
 var app = express();
 
-
-app.use(cors({
+app.use('*', cors({
   origin: process.env.NODE_ENV === 'production' ? 'http://lounge-web.herokuapp.com' : 'http://localhost:8888'
 }));
 
