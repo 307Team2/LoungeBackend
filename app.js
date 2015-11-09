@@ -12,10 +12,10 @@ var url = require('url');
 var app = express();
 
 app.all('*', function (req, res, next) {
-  res.setHeader('Access-Control-Allow-Origin', process.env.NODE_ENV === 'production' ? 'http://lounge-web.herokuapp.com' : 'http://localhost:8888');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type,Authorization');
-  res.setHeader('Access-Control-Allow-Credentials', true);
+  res.header('Access-Control-Allow-Origin', process.env.NODE_ENV === 'production' ? 'http://lounge-web.herokuapp.com' : 'http://localhost:8888');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+  res.header('Access-Control-Allow-Headers', 'X-Requested-With,content-type,Authorization');
+  res.header('Access-Control-Allow-Credentials', true);
   next();
 });
 
