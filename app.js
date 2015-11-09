@@ -1,4 +1,5 @@
 var express = require('express');
+var cors = require('cors');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
@@ -11,13 +12,10 @@ var url = require('url');
 
 var app = express();
 
-app.all('*', function (req, res, next) {
-  res.header('Access-Control-Allow-Origin', process.env.NODE_ENV === 'production' ? 'http://lounge-web.herokuapp.com' : 'http://localhost:8888');
-  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-  res.header('Access-Control-Allow-Headers', 'X-Requested-With,content-type,Authorization');
-  res.header('Access-Control-Allow-Credentials', true);
-  next();
-});
+
+app.use(cors({
+  origin: process.env.NODE_ENV === 'production' ? 'http://lounge-web.herokuapp.com' : 'http://localhost:8888'
+}));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
