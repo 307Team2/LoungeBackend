@@ -9,7 +9,8 @@ var User = new Schema({
     location: String,
     organization: String,
     jobTitle: String,
-    tier: String
+    tier: String,
+    photoUrl: String
 });
 
 User.plugin(passportLocalMongoose);
