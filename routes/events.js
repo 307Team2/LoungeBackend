@@ -7,16 +7,25 @@ module.exports = function(app) {
     // Route for creating events
     app.post('/events/create', function(req, res, next) {
 
-        eventServices.createEvent(req.body, function(err, event) {
+    var auth_token = req.get('Authorization');
+    jwt.verify(auth_token, app.get('superSecret'), function(error, userId) {
+        User.findById(userId, function(error, user) {
+            eventServices.createEvent(req.body, user.tier, function(err, event) {
             if (err) {
                 console.log(err);
                 res.sendStatus(500);
             } else {
                 console.log('New event created: ' + event);
-                res.sendStatus(201);
-            }
+                res.json({
+                    user: req.user;     
+                    token: token; 
+                });
+                }
+            });
         });
     });
+}); 
+
 
     // Route for retrieving data of single event
     app.get('/events/:id', function(req, res, next) {
@@ -44,6 +53,20 @@ module.exports = function(app) {
 
                 // TODO: Render template pls
                 res.render('events/event_feed', {events: events});
+            }
+        });
+    });
+
+    // Route for retrieving data of all events in a tier
+    app.get('/events/:tier', function(req, res, next) {
+
+        eventServices.findAllEventsInTier(function(err, events) {
+            if (err) {
+                console.log(err);
+                res.sendStatus(500);
+            } else {
+                // TODO: Send  what?
+                res.send(post/postt_tier', {post: posts'};
             }
         });
     });
