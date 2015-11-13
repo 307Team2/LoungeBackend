@@ -16,10 +16,10 @@ postServices.findAllPostInTier = function(givenTier, cb) {
         cb(err, posts);
     });
 };
-postServices.findAllPosts = function(cb) {
-    Post.find().exec(function(err, posts) {
+postServices.findAllPosts = function(limit, lastTimestamp, cb) {
+    Post.find({ createdAt: { $lt: lastTimestamp } }).limit(limit).sort({ createdAt: -1 }).exec(function(err, posts) {
         cb(err, posts);
     });
-};    
+};
 
 module.exports = postServices;

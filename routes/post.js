@@ -19,7 +19,7 @@ module.exports = function(app) {
                     res.status(500).send(error);
                 } else if (user) {
                     req.body.authorId = user._id;
-                    postServices.createPost(req.body, function(err, post) {
+                    postServices.createPost(req.body, user.tier, function(err, post) {
                         if (err) {
                             console.log(err);
                             res.sendStatus(500);
