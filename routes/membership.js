@@ -4,35 +4,46 @@ module.exports = function(app) {
 
     app.post('/membership/create', function(req, res, next) {
 
-        var stripe = require("stripe")("sk_test_VgZHXpIF8hRIxSuoobWHnap7");
-        // TODO: Verify tier amounts with team
-        var tierMapping = {
-            'bronze': 10000,
-            'silver': 50000,
-            'gold': 100000
-        };
+        var auth_token = req.get('Authorization');
+        jwt.verify(auth_token, app.get('superSecret'), function(error, userId) {
 
-        var stripeToken = req.body.stripeToken;
-        var tier = req.body.tier;
+            if (error) res.status(500).send("User not logged in: " + error);
 
-        stripe.customers.create({
-          source: stripeToken,
-          plan: "gold",
-          email: "payinguser@example.com"
-        }, function(err, customer) {
+            User.findById(userId, function(err, user) {
 
-        });
+                var stripe = require("stripe")("sk_test_VgZHXpIF8hRIxSuoobWHnap7");
+                // TODO: Verify tier amounts with team
+                var tierMapping = {
+                    'bronze': 10000,
+                    'silver': 50000,
+                    'gold': 100000
+                };
 
-        var charge = stripe.charges.create({
-            amount: tierMapping[tier],
-            currency: "usd",
-            source: stripeToken,
-            description: "Example charge",
-            metadata: {'order_id': '6735'}
-        }, function(err, charge) {
-            if (err && err.type === 'StripeCardError') {
-                // The card has been declined
-            }
+                var stripeToken = req.body.stripeToken;
+                var tier = req.body.tier;
+
+                stripe.customers.create({
+                  source: stripeToken,
+                  plan: "gold",
+                  email: user.username
+                }, function(err, customer) {
+
+                });
+
+                var charge = stripe.charges.create({
+                    amount: tierMapping[tier],
+                    currency: "usd",
+                    source: stripeToken,
+                    description: "Example charge",
+                    metadata: {'order_id': '6735'}
+                }, function(err, charge) {
+                    if (err && err.type === 'StripeCardError') {
+                        // The card has been declined
+                    }
+                });
+
+            });
+
         });
     });
 
