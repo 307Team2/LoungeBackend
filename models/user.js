@@ -10,7 +10,9 @@ var User = new Schema({
     organization: String,
     jobTitle: String,
     tier: String,
-    photoUrl: String
+    photoUrl: String,
+    stripeId: String,
+    subscriptionId: String
 });
 
 User.plugin(passportLocalMongoose);
