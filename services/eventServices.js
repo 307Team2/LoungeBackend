@@ -6,7 +6,7 @@ var eventServices = {};
 eventServices.createEvent = function(eventData, tier, cb) {
     var newEvent = eventData;
     newEvent.tier = tier
-    newEvent.startDate = moment(newEvent.startDate).toDate();
+    newEvent.startDate = moment(newEvent.stateDate).toDate();
     Event.create(newEvent, function(err, event) {
         cb(err, event);
     });
