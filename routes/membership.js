@@ -9,6 +9,17 @@ module.exports = function(app) {
 
 
 //making first charge
+var stripe = require("stripe")("sk_test_VgZHXpIF8hRIxSuoobWHnap7");
+
+// (Assuming you're using express - expressjs.com)
+// Get the credit card details submitted by the form
+var stripeToken = request.body.stripeToken;
+
+stripe.customers.create({
+  source: stripeToken,
+  plan: "gold",
+  email: "payinguser@example.com"
+}, function(err, customer) 
 
     app.post('/membership/create', function(req, res, next) {
 
