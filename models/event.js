@@ -4,7 +4,8 @@ var Schema = mongoose.Schema;
 var eventSchema = new Schema({
     title: String,
     description: String,
-    startDate: Date
+    startDate: Date,
+    tier: String
 });
 
 module.exports = mongoose.model('Event', eventSchema);
