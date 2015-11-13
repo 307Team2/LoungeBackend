@@ -13,20 +13,20 @@ module.exports = function(app) {
             console.log(err);
             res.sendStatus(500);
         }
-    User.findById(userId, function(error, user) {
-        if (error) {
-            console.log(error);
-            res.sendStatus(500);
-        }
-            eventServices.createEvent(req.body, user.tier, function(createErr, event) {
-            if (createErr) {
-                console.log(createErr);
+        User.findById(userId, function(error, user) {
+            if (error) {
+                console.log(error);
                 res.sendStatus(500);
-            } else {
-                console.log('New event created: ' + event);
-                res.json({
-                    user: req.user;     
-                    token: token; 
+            }
+            eventServices.createEvent(req.body, user.tier, function(createErr, event) {
+                if (createErr) {
+                    console.log(createErr);
+                    res.sendStatus(500);
+                } else {
+                    console.log('New event created: ' + event);
+                    res.json({
+                        user: req.user;     
+                        token: token; 
                     });
                 }   
             });
@@ -68,13 +68,13 @@ module.exports = function(app) {
     // Route for retrieving data of all events in a tier
     app.get('/events/:tier', function(req, res, next) {
 
-        eventServices.findAllEventsInTier(function(err, tier,  events) {
+        eventServices.findAllEventsInTier(function(err, tier, events) {
             if (err) {
                 console.log(err);
                 res.sendStatus(500);
             } else {
                 res.json({
-                posts: posts
+                    posts: posts
                 });
             }
         });
