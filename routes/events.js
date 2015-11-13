@@ -8,8 +8,16 @@ module.exports = function(app) {
     app.post('/events/create', function(req, res, next) {
 
     var auth_token = req.get('Authorization');
-    jwt.verify(auth_token, app.get('superSecret'), function(error, userId) {
-        User.findById(userId, function(error, user) {
+    jwt.verify(auth_token, app.get('superSecret'), function(err, userId) {
+        if (err) {
+            console.log(err);
+            res.sendStatus(500);
+        }
+    User.findById(userId, function(error, user) {
+        if (err) {
+            console.log(err);
+            res.sendStatus(500);
+        }
             eventServices.createEvent(req.body, user.tier, function(err, event) {
             if (err) {
                 console.log(err);
@@ -19,12 +27,12 @@ module.exports = function(app) {
                 res.json({
                     user: req.user;     
                     token: token; 
-                });
-                }
+                    });
+                }   
             });
+          });
         });
-    });
-}); 
+    }); 
 
 
     // Route for retrieving data of single event
@@ -60,13 +68,14 @@ module.exports = function(app) {
     // Route for retrieving data of all events in a tier
     app.get('/events/:tier', function(req, res, next) {
 
-        eventServices.findAllEventsInTier(function(err, events) {
+        eventServices.findAllEventsInTier(function(err, tier,  events) {
             if (err) {
                 console.log(err);
                 res.sendStatus(500);
             } else {
-                // TODO: Send  what?
-                res.send(post/postt_tier', {post: posts'};
+                res.json({
+                posts: posts
+                });
             }
         });
     });
