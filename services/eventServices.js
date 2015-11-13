@@ -6,7 +6,6 @@ var eventServices = {};
 eventServices.createEvent = function(eventData, tier, cb) {
     var newEvent = eventData;
     newEvent.tier = tier
-    console.log(newEvent);
     newEvent.startDate = moment(newEvent.startDate).toDate();
     Event.create(newEvent, function(err, event) {
         cb(err, event);
@@ -20,8 +19,8 @@ eventServices.findOneEvent = function(eventId, cb) {
 };
 
 eventServices.findAllEventsInTier = function(givenTier, cb) {
-    Event.find({tier: givenTier}).exec(function(err, event) {
-        cb(err, event);
+    Event.find({tier: givenTier}).exec(function(err, events) {
+        cb(err, events);
     });
 };
 

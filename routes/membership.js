@@ -2,13 +2,7 @@
 stripe = require("stripe")("sk_test_BQokikJOvBiI2HlWgH4olfQ2");
 module.exports = function(app) {
 
-    app.get('/membership/create', function(req, res, next) {
-        console.log("test");
-        res.render('payment/paywall.jsx');
-    });
-
-
-//making first charge
+    //making first charge
 
     app.post('/membership/create', function(req, res, next) {
 
