@@ -10,7 +10,8 @@ accountServices.createUser = function(userData, cb) {
         age: userData.age,
         location: userData.location,
         organization: userData.organization,
-        jobTitle: userData.jobTitle
+        jobTitle: userData.jobTitle,
+        photoUrl: userData.photoUrl
     });
 
     User.register(newUser, userData.password, function(err, user) {
