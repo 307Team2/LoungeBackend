@@ -12,36 +12,30 @@ module.exports = function(app) {
     //   content: String
     // }
     app.post('/posts/create', function(req, res, next) {
-
         var auth_token = req.get('Authorization');
-
-        jwt.verify(auth_token, app.get('superSecret'), function(error, user) {
-        
-            if (error) {
-        
-                res.status(500).send(error);
-        
-            } else if (user) {
-        
-                req.body.authorId = user._id;
-                postServices.createPost(req.body, function(err, post) {
-                    if (err) {
-                        console.log(err);
-
-                        // TODO: Render template here w/ error message
-                        res.sendStatus(500);
-                    } else {
-                        console.log('New post created: ' + post);
-
-                        // TODO: Render template here
-                        res.sendStatus(201);
-                    }
-                });
-        
-            }
-        
+        jwt.verify(auth_token, app.get('superSecret'), function(error, userId) {
+            User.findById(userId, function(error, user) {
+                if (error) {
+                    res.status(500).send(error);
+                } else if (user) {
+                    req.body.authorId = user._id;
+                    postServices.createPost(req.body, function(err, post) {
+                        if (err) {
+                            console.log(err);
+                            res.sendStatus(500);
+                        } else {
+                            User.findById(post.authorId, function(error, author) {
+                                var newPost = post.toObject();
+                                newPost.displayName = author.firstName + " " + author.lastName;
+                                res.json({
+                                    post: newPost
+                                });
+                            });
+                        }
+                    });
+                }
+            });
         });
-
     });
 
     app.get('/posts/all?', function(req, res, next) {
@@ -53,6 +47,7 @@ module.exports = function(app) {
         postServices.findAllPosts(limit, lastTimestamp, function(err, posts) {
             if (err) {
                 res.status(500).send(err);
+                return;
             }
 
             var expandPost = function(post, cb) {

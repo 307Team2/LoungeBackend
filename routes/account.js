@@ -11,7 +11,7 @@ module.exports = function(app) {
     });
 
     app.post('/account/login', passport.authenticate('local'), function(req, res, next) {
-        var token = jwt.sign(req.user, app.get('superSecret'), {
+        var token = jwt.sign(req.user._id, app.get('superSecret'), {
           expiresIn: 86400 // expires in 24 hours
         });
 
@@ -35,7 +35,7 @@ module.exports = function(app) {
                     error: err
                 });
             } else {
-                var token = jwt.sign(user, app.get('superSecret'), {
+                var token = jwt.sign(req.user._id, app.get('superSecret'), {
                   expiresIn: 86400 // expires in 24 hours
                 });
                 res.json({
@@ -43,6 +43,21 @@ module.exports = function(app) {
                     token: token
                 });
             }
+        });
+    });
+
+    app.get('/account/data', function(req, res, next) {
+        var auth_token = req.get('Authorization');
+        jwt.verify(auth_token, app.get('superSecret'), function(error, userId) {
+            User.findById(userId, function(error, user) {
+                if (error) {
+                    res.status(500).send(error);
+                } else if (user) {
+                    res.json({
+                        user: user
+                    });
+                }
+            });
         });
     });
 
@@ -73,10 +88,16 @@ module.exports = function(app) {
         });
     });
 
-    app.get('/account/updateMembership', function(req, res, next) {
-        console.log(req.user);
-        // FIXME: This needs to render a template that shows the user's current membership tier + has a Stripe payment button for adding/updating membership
-        res.render('account/update_membership', {user: req.user});
+    app.post('/account/updateMembership', function(req, res, next) {        
+        var auth_token = req.get('Authorization');
+        jwt.verify(auth_token, app.get('superSecret'), function(error, userId) {
+            accountServices.updateUser(userId, req.body, function(err, user) {
+                if (err) {
+                    console.log('Error updating tier for user: ' + user);
+                }
+                res.sendStatus(200);
+            });
+        });
     });
 
     /* GET begin password reset page. */
