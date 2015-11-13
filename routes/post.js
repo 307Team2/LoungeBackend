@@ -40,34 +40,45 @@ module.exports = function(app) {
 
     app.get('/posts/all?', function(req, res, next) {
 
+
+        var auth_token = req.get('Authorization');
         var limit = req.query.limit;
         var lastTimestamp = req.query.lastTimestamp;
-
-        // might want to limit posts to certain time period
-        postServices.findAllPosts(limit, lastTimestamp, function(err, posts) {
+        jwt.verify(auth_token, app.get('superSecret'), function(err, userId) {
             if (err) {
-                res.status(500).send(err);
-                return;
-            }
-
-            var expandPost = function(post, cb) {
-                User.findById(post.authorId, function(error, author) {
-                    var newPost = post.toObject();
-                    if (author) {
-                        newPost.displayName = author.firstName + " " + author.lastName;
-                    } else {
-                        newPost.displayName = "Anonymous"
+                console.log(err);
+                res.sendStatus(500);
+            } else {
+                User.findById(userId, function(error, user) {
+                    if (error) {
+                        console.log(error);
+                        res.sendStatus(500);
                     }
-                    cb(null, newPost);
+                    postServices.findAllPosts(user.tier, limit, lastTimestamp, function(err, posts) {
+                        if (err) {
+                            res.status(500).send(err);
+                            return;
+                        }
+
+                        var expandPost = function(post, cb) {
+                            User.findById(post.authorId, function(error, author) {
+                                var newPost = post.toObject();
+                                if (author) {
+                                    newPost.displayName = author.firstName + " " + author.lastName;
+                                } else {
+                                    newPost.displayName = "Anonymous"
+                                }
+                                cb(null, newPost);
+                            });
+                        };
+                        async.map(posts, expandPost, function(error, expandedPosts) {
+                            res.json({
+                                posts: expandedPosts
+                            });
+                        });
+                    });
                 });
             }
-
-            async.map(posts, expandPost, function(error, expandedPosts) {
-                res.json({
-                    posts: expandedPosts
-                });
-            });
-
         });
     });
 };
