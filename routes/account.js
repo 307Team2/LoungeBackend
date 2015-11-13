@@ -35,7 +35,7 @@ module.exports = function(app) {
                     error: err
                 });
             } else {
-                var token = jwt.sign(req.user._id, app.get('superSecret'), {
+                var token = jwt.sign(user._id, app.get('superSecret'), {
                   expiresIn: 86400 // expires in 24 hours
                 });
                 res.json({
@@ -88,7 +88,8 @@ module.exports = function(app) {
         });
     });
 
-    app.post('/account/updateMembership', function(req, res, next) {        
+    app.post('/account/updateMembership', function(req, res, next) {
+
         var auth_token = req.get('Authorization');
         jwt.verify(auth_token, app.get('superSecret'), function(error, userId) {
             accountServices.updateUser(userId, req.body, function(err, user) {
@@ -98,6 +99,7 @@ module.exports = function(app) {
                 res.sendStatus(200);
             });
         });
+
     });
 
     /* GET begin password reset page. */
