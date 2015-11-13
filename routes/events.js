@@ -25,8 +25,8 @@ module.exports = function(app) {
                 } else {
                     console.log('New event created: ' + event);
                     res.json({
-                        user: req.user;
-                        token: token;
+                        user: req.user,
+                        token: token
                     });
                 }   
             });
