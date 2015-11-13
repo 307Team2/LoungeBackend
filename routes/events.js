@@ -14,13 +14,13 @@ module.exports = function(app) {
             res.sendStatus(500);
         }
     User.findById(userId, function(error, user) {
-        if (err) {
-            console.log(err);
+        if (error) {
+            console.log(error);
             res.sendStatus(500);
         }
-            eventServices.createEvent(req.body, user.tier, function(err, event) {
-            if (err) {
-                console.log(err);
+            eventServices.createEvent(req.body, user.tier, function(createErr, event) {
+            if (createErr) {
+                console.log(createErr);
                 res.sendStatus(500);
             } else {
                 console.log('New event created: ' + event);
