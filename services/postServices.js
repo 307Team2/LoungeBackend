@@ -10,8 +10,10 @@ postServices.createPost = function(newPost, cb) {
 	});
 };
 
-postServices.findAllPosts = function(cb) {
-	Post.find().exec(function(err, posts) {
+postServices.findAllPosts = function(limit, lastTimestamp, cb) {
+	Post.find({createdAt: {$lt: lastTimestamp}}).sort({createdAt: -1}).limit(limit).exec(function(err, posts) {
 		cb(err, posts);
 	});
 };    
+
+module.exports = postServices;
