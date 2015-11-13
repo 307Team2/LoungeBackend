@@ -16,6 +16,7 @@ postServices.findAllPostInTier = function(givenTier, cb) {
         cb(err, posts);
     });
 };
+
 postServices.findAllPosts = function(givenTier, limit, lastTimestamp, cb) {
     Post.find({ createdAt: { $lt: lastTimestamp }, tier: givenTier}).limit(limit).sort({ createdAt: -1 }).exec(function(err, posts) {
         cb(err, posts);
