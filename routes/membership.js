@@ -2,7 +2,24 @@
 stripe = require("stripe")("sk_test_BQokikJOvBiI2HlWgH4olfQ2");
 module.exports = function(app) {
 
-    //making first charge
+    app.get('/membership/create', function(req, res, next) {
+        console.log("test");
+        res.render('payment/paywall.jsx');
+    });
+
+
+//making first charge
+var stripe = require("stripe")("sk_test_VgZHXpIF8hRIxSuoobWHnap7");
+
+// (Assuming you're using express - expressjs.com)
+// Get the credit card details submitted by the form
+var stripeToken = request.body.stripeToken;
+
+stripe.customers.create({
+  source: stripeToken,
+  plan: "gold",
+  email: "payinguser@example.com"
+}, function(err, customer) 
 
     app.post('/membership/create', function(req, res, next) {
 
