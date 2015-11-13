@@ -19,9 +19,23 @@ eventServices.findOneEvent = function(eventId, cb) {
 };
 
 eventServices.findAllEventsInTier = function(givenTier, cb) {
-    Event.find({tier: givenTier}).exec(function(err, events) {
-        cb(err, events);
-    });
+    switch (givenTier) {
+        case 'Bronze':
+            Event.find({tier: givenTier}).exec(function(err, events) {
+                cb(err, events);
+            });
+            break;
+        case 'Silver':
+            Event.find({tier: {$ne: 'Gold'}}).exec(function(err, events) {
+                cb(err, events);
+            });
+            break;
+        case 'Gold':
+            Event.find({}).exec(function(err, events) {
+                cb(err, events);
+            });
+            break;
+    };
 };
 
 eventServices.findAllEvents = function(cb) {
