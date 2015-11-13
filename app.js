@@ -94,6 +94,7 @@ require('./routes/account.js')(app);
 require('./routes/events.js')(app);
 require('./routes/post.js')(app);
 require('./routes/profile.js')(app);
+require('./routes/membership.js')(app);
 
 // start server
 app.listen(app.get('port'), function() {

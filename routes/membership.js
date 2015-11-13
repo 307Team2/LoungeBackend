@@ -1,7 +1,18 @@
 var jwt = require('jsonwebtoken');
+var accountServices = require('../services/accountServices');
+var User = require('../models/user.js');
+var stripe = require("stripe")("sk_test_VgZHXpIF8hRIxSuoobWHnap7");
+
+var tierMapping = {
+    Bronze: "lounge-plan-bronze",
+    Silver: "lounge-plan-silver",
+    Gold: "lounge-plan-gold"
+}
 
 module.exports = function(app) {
 
+
+    // /membership/create expects a req.body.tier and req.body.stripeToken
     app.post('/membership/create', function(req, res, next) {
 
         var auth_token = req.get('Authorization');
@@ -10,59 +21,97 @@ module.exports = function(app) {
             if (error) res.status(500).send("User not logged in: " + error);
 
             User.findById(userId, function(err, user) {
-
-                var stripe = require("stripe")("sk_test_VgZHXpIF8hRIxSuoobWHnap7");
-                // TODO: Verify tier amounts with team
-                var tierMapping = {
-                    'bronze': 10000,
-                    'silver': 50000,
-                    'gold': 100000
-                };
+                if (err) res.status(500).send("User not found: " + err);
 
                 var stripeToken = req.body.stripeToken;
                 var tier = req.body.tier;
 
-                stripe.customers.create({
-                  source: stripeToken,
-                  plan: "gold",
-                  email: user.username
-                }, function(err, customer) {
+                if (user.stripeId) {
 
-                });
+                    stripe.customers.createSubscription(
+                        user.stripeId,
+                        {
+                            plan: tierMapping[tier]
+                        },
+                    function(subsError, subscription) {
+                        if (subsError) res.status(500).send("Stripe could not create subscription: " + subsError);
 
-                var charge = stripe.charges.create({
-                    amount: tierMapping[tier],
-                    currency: "usd",
-                    source: stripeToken,
-                    description: "Example charge",
-                    metadata: {'order_id': '6735'}
-                }, function(err, charge) {
-                    if (err && err.type === 'StripeCardError') {
-                        // The card has been declined
-                    }
-                });
+                        accountServices.updateUser(userId, { tier: tier, subscriptionId: subscription.id });
 
+                        res.json({
+                            subscription: subscription
+                        });
+                    });
+
+                } else {
+
+                    stripe.customers.create({
+                      source: stripeToken.id,
+                      email: user.username
+                    }, function(custError, customer) {
+                        if (err) res.status(500).send("Stripe could not create customer: " + custError);
+
+                        stripe.customers.createSubscription(
+                            customer.id,
+                            {
+                                plan: tierMapping[tier]
+                            },
+                        function(subsError, subscription) {
+                            if (subsError) res.status(500).send("Stripe could not create subscription: " + subsError);
+
+                            accountServices.updateUser(userId, { tier: tier, stripeId: customer.id, subscriptionId: subscription.id });
+
+                            res.json({
+                                subscription: subscription
+                            });
+                        });
+                    });
+
+                }
             });
-
         });
     });
 
-    //to view one member's membership 
-    app.get('/member/:id', function(req, res, next) {        
-        if(req.user)    {
-            res.send(req.user.tier);
-            } else {
-                res.sendStatus(401);
-            }
-        });
+    // /membership/update expects a req.body.tier
+    app.post('/membership/update', function(req, res, next) {
 
-    //cancel subscription 
-    stripe.customers.cancelSubscription(
-      "cus_3R1W8PG2DmsmM9",
-      "sub_3R3PlB2YlJe84a",
-      function(err, confirmation) {
-        // asynchronously called
-      }
-    );
+        var auth_token = req.get('Authorization');
+        jwt.verify(auth_token, app.get('superSecret'), function(error, userId) {
+            if (error) res.status(500).send("User not logged in: " + error);
+
+            User.findById(userId, function(err, user) {
+                if (err) res.status(500).send("Could not find user: " + err);
+                var tier = req.body.tier;
+
+                // Update Subscription
+                stripe.customers.updateSubscription(
+                    user.stripeId,
+                    user.subscriptionId,
+                    { plan: tierMapping[tier] },
+                    function(subsError, subscription) {
+                        if (subsError) res.status(500).send("Stripe could not update subscription: " + subsError);
+                        accountServices.updateUser(userId, { tier: tier, subscriptionId: subscription.id });
+                    }
+                );
+            });
+        });
+    });
+
+    // /membership/cancel expects a req.body.tier
+    app.post('/membership/cancel', function(req, res, next) {
+
+        var auth_token = req.get('Authorization');
+        jwt.verify(auth_token, app.get('superSecret'), function(error, userId) {
+            if (error) res.status(500).send("User not logged in: " + error);
+
+            User.findById(userId, function(err, user) {
+                if (err) res.status(500).send("Could not find user: " + err);
+
+                // Update Subscription
+                stripe.customers.cancelSubscription(user.stripeId, user.subscriptionId);
+                accountServices.updateUser(userId, { tier: null, subscriptionId: null });
+            });
+        });
+    });
 
 };
