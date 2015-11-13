@@ -106,4 +106,16 @@ module.exports = function(app) {
             }
         });
     });
+
+    // Route for updating a user's RSVP status
+    app.post('/events/:eventId/updateRsvp', function(req, res, next) {
+        var eventId = req.params.eventId;
+        var userId = req.body.userId;
+        var rsvpStatus = req.body.rsvpStatus;
+
+        eventServices.updateRsvp(eventId, userId, rsvpStatus, function(event) {
+            console.log('updated event', event);
+            res.sendStatus(200);
+        });
+    });
 };
