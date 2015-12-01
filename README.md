@@ -18,6 +18,12 @@ https://docs.google.com/document/d/1I0noyDoPbBnlYBI7FL-aPBxKGTpzoFZBmsUCd-ym1LM/
 Sprint 2 Planning Document:
 https://docs.google.com/document/d/1V8fl7uWXPd9PkgBuW_ErfeEXgPX-LJnw92X123fp7ag/edit?usp=sharing
 
+Sprint 2 Retrospective:
+https://docs.google.com/document/d/1jujYOOHhMuPsuP5MTrDcKVX_vtpvkoqMWY1ZyLzSc3A/edit?usp=sharing
+
+Sprint 3 Planning Document:
+https://docs.google.com/document/d/1CLy_NpkBmK7u9eqslmKAWeDjIhgIEXAacb9ZkOd67-g/edit?usp=sharing
+
 ## Setup: Grunt
 [Grunt](http://gruntjs.com/) is a javascript task runner, you can use it to do things like minification, compilation, unit testing, linting, etc, but we're only using it to compile sass into css right now.
 
