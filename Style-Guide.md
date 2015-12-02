@@ -105,7 +105,7 @@ const array = [];
 const array = new Array();
 ```
 
-This style guide was influenced by severa well-written style guides. The most influential were:
+This style guide was influenced by several well-written style guides. The most influential were:
 
 https://github.com/airbnb/javascript
 
