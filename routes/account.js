@@ -5,7 +5,7 @@ var accountServices = require('../services/accountServices');
 
 module.exports = function(app) {
 
-    /* GET sign up. */
+    // GET sign up.
     app.get('/account/login', function(req, res, next) {
         res.render('account/login');
     });
@@ -21,7 +21,7 @@ module.exports = function(app) {
         });
     });
 
-    /* GET sign up. */
+    // GET sign up.
     app.get('/account/signup', function(req, res, next) {
         res.render('account/signup');
     });
@@ -102,32 +102,32 @@ module.exports = function(app) {
 
     });
 
-    /* GET begin password reset page. */
+    // GET begin password reset page.
     app.get('/account/begin_password_reset', function(req, res, next) {
         res.render('account/begin_password_reset');
     });
 
-    /* GET password reset complete page. */
+    // GET password reset complete page.
     app.get('/account/password_reset_complete', function(req, res, next) {
         res.render('account/password_reset_complete');
     });
 
-    /* GET reset email sent page. */
+    // GET reset email sent page.
     app.get('/account/reset_email_sent', function(req, res, next) {
         console.log(req.body);
         res.render('account/reset_email_sent');
-        // var sendgrid_api_key = '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';
-        // var sendgrid  = require('sendgrid')(sendgrid_api_key);
-        // var payload = {
-        //         to      : req.user.username,
-        //         from    : 'team@lounge-herokuapp.com',
-        //         subject : 'Password Reset',
-        //         text    : 'A password reset has been initiated for your account'
-        // };
-        // sendgrid.send(payload, function(err, json) {
-        //         if (err) { console.error(err); }
-        //         console.log(json);
-        // });
+        /* var sendgrid_api_key = 'secret';
+           var sendgrid  = require('sendgrid')(sendgrid_api_key);
+           var payload = {
+                   to      : req.user.username,
+                   from    : 'team@lounge-herokuapp.com',
+                   subject : 'Password Reset',
+                   text    : 'A password reset has been initiated for your account'
+           };
+           sendgrid.send(payload, function(err, json) {
+                   if (err) { console.error(err); }
+                   console.log(json);
+        */ });
     });
 
     app.post('/account/reset_email_sent', function(req, res, next) {
@@ -147,7 +147,7 @@ module.exports = function(app) {
       });
     });
 
-    /* GET reset password page. */
+    // GET reset password page.
     app.get('/account/reset_password', function(req, res, next) {
         res.render('account/reset_password');
     });
