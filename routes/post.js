@@ -12,8 +12,8 @@ module.exports = function(app) {
     //   content: String
     // }
     app.post('/posts/create', function(req, res, next) {
-        var auth_token = req.get('Authorization');
-        jwt.verify(auth_token, app.get('superSecret'), function(error, userId) {
+        var authToken = req.get('Authorization');
+        jwt.verify(authToken, app.get('superSecret'), function(error, userId) {
             User.findById(userId, function(error, user) {
                 if (error) {
                     res.status(500).send(error);
@@ -41,10 +41,10 @@ module.exports = function(app) {
     app.get('/posts/all?', function(req, res, next) {
 
 
-        var auth_token = req.get('Authorization');
+        var authToken = req.get('Authorization');
         var limit = req.query.limit;
         var lastTimestamp = req.query.lastTimestamp;
-        jwt.verify(auth_token, app.get('superSecret'), function(err, userId) {
+        jwt.verify(authToken, app.get('superSecret'), function(err, userId) {
             if (err) {
                 console.log(err);
                 res.sendStatus(500);
