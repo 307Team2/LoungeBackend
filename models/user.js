@@ -12,7 +12,8 @@ var User = new Schema({
     tier: String,
     photoUrl: String,
     stripeId: String,
-    subscriptionId: String
+    subscriptionId: String,
+    isAdmin: Boolean
 });
 
 User.plugin(passportLocalMongoose);
