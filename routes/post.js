@@ -6,23 +6,25 @@ var postServices = require('../services/postServices');
 
 module.exports = function(app) {
 
-    // Expects form data in the form of:
-    // {
-    //   authorId: String,
-    //   content: String
-    // }
+    /* Expects form data in the form of:
+       {
+         authorId: String,
+         content: String
+       }
+	*/
     app.post('/posts/create', function(req, res, next) {
         var auth_token = req.get('Authorization');
         jwt.verify(auth_token, app.get('superSecret'), function(error, userId) {
             User.findById(userId, function(error, user) {
                 if (error) {
+					console.log('Error finding by ID:', error);
                     res.status(500).send(error);
                 } else if (user) {
                     req.body.authorId = user._id;
                     postServices.createPost(req.body, user.tier, function(err, post) {
                         if (err) {
-                            console.log(err);
-                            res.sendStatus(500);
+                            console.log('Error creating post:', err);
+                            res.status(500).send(err);
                         } else {
                             User.findById(post.authorId, function(error, author) {
                                 var newPost = post.toObject();
@@ -46,17 +48,18 @@ module.exports = function(app) {
         var lastTimestamp = req.query.lastTimestamp;
         jwt.verify(auth_token, app.get('superSecret'), function(err, userId) {
             if (err) {
-                console.log(err);
-                res.sendStatus(500);
+                console.log('Error verifying auth token:', err);
+                res.status(500).send(err);
             } else {
                 User.findById(userId, function(error, user) {
                     if (error) {
-                        console.log(error);
-                        res.sendStatus(500);
+                        console.log('Error finding by ID:', error);
+                		res.status(500).send(error);
                     }
                     postServices.findAllPosts(user.tier, limit, lastTimestamp, function(err, posts) {
                         if (err) {
-                            res.status(500).send(err);
+							console.log('Error finding all posts:', err);
+                			res.status(500).send(err);
                             return;
                         }
 
