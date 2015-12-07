@@ -5,7 +5,7 @@ var Post = require('../models/post');
 
 module.exports = function(app) {
   
-  /* GET profile page. */
+  // GET profile page.
   app.get('/profile/:id', function(req, res, next) {
  
     User.findById(req.params.id, function(error, user) {
@@ -19,7 +19,7 @@ module.exports = function(app) {
 
   });
 
-  /* GET edit profile page. */
+  // GET edit profile page.
   app.get('/profile/edit', function(req, res, next) {
     res.render('edit-profile', {
       user: {
