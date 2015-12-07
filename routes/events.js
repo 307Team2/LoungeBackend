@@ -18,6 +18,13 @@ module.exports = function(app) {
             return;
         }
 
+        // check for missing fields
+        if (!req.body.title || !req.body.description || !req.body.startDate || !req.body.tier) {
+            console.log('event to be created is missing fields');
+            res.status(400).send({error: 'Event is missing fields'});
+            return;
+        }
+
         var auth_token = req.get('Authorization');
         jwt.verify(auth_token, app.get('superSecret'), function(err, userId) {
             if (err) {
