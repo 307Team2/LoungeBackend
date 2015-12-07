@@ -12,6 +12,12 @@ module.exports = function(app) {
     //   content: String
     // }
     app.post('/posts/create', function(req, res, next) {
+        if (!req.body || !req.body.content) {
+            console.log('post to be created is missing content');
+            res.status(400).send({error: 'No content in post'});
+            return;
+        }
+
         var authToken = req.get('Authorization');
         jwt.verify(authToken, app.get('superSecret'), function(error, userId) {
             User.findById(userId, function(error, user) {

@@ -9,6 +9,22 @@ module.exports = function(app) {
 
     // Route for creating events
     app.post('/events/create', function(req, res, next) {
+        // TODO: Might need to parse this date, not sure
+        // validate that start date makes sense
+        var startDate = req.body.startDate;
+        if (startDate > Date.now()) {
+            console.log('invalid startDate (in future)');
+            res.status(400).send({error: 'Invalid startDate'});
+            return;
+        }
+
+        // check for missing fields
+        if (!req.body.title || !req.body.description || !req.body.startDate || !req.body.tier) {
+            console.log('event to be created is missing fields');
+            res.status(400).send({error: 'Event is missing fields'});
+            return;
+        }
+
         var auth_token = req.get('Authorization');
         jwt.verify(auth_token, app.get('superSecret'), function(err, userId) {
             if (err) {
