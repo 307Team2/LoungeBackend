@@ -18,7 +18,7 @@ module.exports = function(app) {
             User.findById(userId, function(error, user) {
                 if (error) {
                     console.log('Error finding user by ID:', error);
-                	res.status(500).send(error);
+                    res.status(500).send(error);
                 }
                 eventServices.createEvent(req.body, user.tier, function(createErr, event) {
                     if (createErr) {
