@@ -31,6 +31,9 @@ if (true)
   console.log('Incorrect');
 }
 ```
+
+##### Closing Parentheses
+
 Closing parentheses and braces should be grouped on the same line.
 
 <i>Correct:</i>
@@ -50,7 +53,89 @@ res.json(
 );
 ```
 
+##### Code Blocks
+
+Use braces for multi-line blocks of code.
+
+<i>Correct:</i>
+```
+if (true) return true;
+
+if (true) {
+  return true;
+}
+
+function () {
+  return true;
+}
+```
+<i>Incorrect:</i>
+```
+if (badFormatting)
+  return false;
+
+function () { return false; }
+```
+
+For if-else blocks, put `else` on the same line as the end of the corresponding `if` statement.
+
+<i>Correct:</i>
+```
+if (isTrue) {
+  console.log('true');
+} else {
+  console.log('not true);
+}
+```
+
+<i>Incorrect:</i>
+```
+if (isTrue) {
+  console.log('true');
+} 
+else {
+  console.log('not true);
+}
+```
+
+### Comments
+
+##### Multi-Line Comments
+
+Use `/* ... */` for comments spanning multiple lines. 
+
+##### Single-Line Comments
+
+Use `//` for comments on a single line.
+
+##### Indentation
+
+Comment indentation should match that of the block of code it is inside.
+
+<i>Correct:</i>
+```
+if (true) {
+  // prints that it is true
+  console.log('true');
+}
+```
+<i>Incorrect:</i>
+```
+if (true) {
+// prints that it is true
+  console.log('true');
+}
+
+if (true) { 
+    // prints that it is true
+  console.log('true');
+}
+```
+
 ###Variables
+
+##### Lower Camel Case
+
 Lower camel case should be used for all variable declarations.
 
 <i>Correct:</i>
@@ -63,6 +148,8 @@ const new_variable = 1;
 const new-variable = 1;
 ```
 
+##### 4 Word Variable Names
+
 Variable names should not exceed 4 words, for readability.
 
 <i>Correct:</i>
@@ -74,6 +161,8 @@ const newPerson = 'Evan';
 const newPersonNameDataInitial = 'Evan';
 ```
 
+##### Match Number of Data Type
+
 Variables should match the number of the object type they represent.
 
 <i>Correct:</i>
@@ -81,6 +170,8 @@ Variables should match the number of the object type they represent.
 const user = 'Evan';
 const users = [];
 ```
+
+##### One Variable Per Var
 
 Only declare one variable per var keyword.
 
@@ -94,6 +185,8 @@ var otherValues = [10, 20];
 var firstValue = 1,
     otherValues = [10, 20];
 ```
+
+##### Object and Array Formatting
 
 For objects and arrays, place opening and closing syntax on the same line, if it is a short declaration.
 
@@ -115,6 +208,9 @@ var anotherObject = [
 ```
 
 ###Objects
+
+##### Literal Syntax
+
 Use literal syntax to create objects.
 
 <i>Correct:</i>
@@ -126,6 +222,8 @@ const object = {};
 const object = new Object();
 ```
 ###Arrays
+
+##### Literal Syntax
 Use literal syntax to create arrays
 
 <i>Correct:</i>
@@ -139,9 +237,13 @@ const array = new Array();
 
 ###Functions
 
+##### Keep Functions Short
+
 Functions should be kept as short as possible to increase readability. Any major service should be broken out into a seperate function. 
 
 ###Properties
+
+##### Dot Notation
 
 Use dot notation to access the properties of variables.
 
