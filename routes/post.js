@@ -66,7 +66,7 @@ module.exports = function(app) {
                                 if (author) {
                                     newPost.displayName = author.firstName + " " + author.lastName;
                                 } else {
-                                    newPost.displayName = "Anonymous"
+                                    newPost.displayName = "Anonymous";
                                 }
                                 cb(null, newPost);
                             });
