@@ -110,4 +110,26 @@ module.exports = function(app) {
             });
         });
     });
+
+    app.delete('/posts/:postId/comments', function(req, res) {
+      var commentId = req.body.commentId;
+
+      Post.findById(req.params.postId, function(findErr, post) {
+        if (findErr) {
+            console.log('error finding post', findErr);
+            res.sendStatus(500);
+            return;
+        }
+
+        post.comments.id(commentId).remove();
+        post.save(function(saveErr) {
+            if (saveErr) {
+                console.log('error saving post afer adding comment', saveErr);
+            }
+
+            // send back updated post
+            res.send(post);
+        });
+      });
+    });
 };
