@@ -81,4 +81,32 @@ module.exports = function(app) {
             }
         });
     });
+
+    app.post('/posts/:postId/addComment', function(req, res) {
+        var commentContent = req.body.commentContent;
+        var authorId = req.user.id;
+
+        Post.findById(req.params.postId, function(findErr, post) {
+            if (findErr) {
+                console.log('error finding post', findErr);
+                res.sendStatus(500);
+                return;
+            }
+
+            var newComment = {
+                authorId: authorId,
+                content: commentContent
+            };
+
+            post.comments.push(newComment);
+            post.save(function(saveErr) {
+                if (saveErr) {
+                    console.log('error saving post afer adding comment', saveErr);
+                }
+
+                // send back updated post
+                res.send(post);
+            });
+        });
+    });
 };
