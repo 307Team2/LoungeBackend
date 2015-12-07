@@ -51,7 +51,7 @@ res.json(
 ```
 
 ###Variables
-Camel case should be used for all variable declarations.
+Lower camel case should be used for all variable declarations.
 
 <i>Correct:</i>
 ```
@@ -82,6 +82,38 @@ const user = 'Evan';
 const users = [];
 ```
 
+Only declare one variable per var keyword.
+
+<i>Correct:</i>
+```
+var firstValue = 1;
+var otherValues = [10, 20];
+```
+<i>Incorrect:</i>
+```
+var firstValue = 1,
+    otherValues = [10, 20];
+```
+
+For objects and arrays, place opening and closing syntax on the same line, if it is a short declaration.
+
+<i>Correct:</i>
+```
+var object = ['good', 'object'];
+```
+<i>Incorrect:</i>
+```
+var oneObject = [
+  'bad', 'object'
+];
+
+var anotherObject = [
+  'still',
+  'bad',
+  'object'
+];
+```
+
 ###Objects
 Use literal syntax to create objects.
 
@@ -103,6 +135,33 @@ const array = [];
 <i>Incorrect:</i>
 ```
 const array = new Array();
+```
+
+###Functions
+
+Functions should be kept as short as possible to increase readability. Any major service should be broken out into a seperate function. 
+
+###Properties
+
+Use dot notation to access the properties of variables.
+
+<i>Correct:</i>
+```
+var event = {
+  name: 'Fun Event',
+  time: '6:00pm',
+};
+
+const eventTime = event.time;
+```
+<i>Incorrect:</i>
+```
+var event = {
+  name: 'Fun Event',
+  time: '6:00pm',
+};
+
+const eventTime = event['time'];
 ```
 
 This style guide was influenced by several well-written style guides. The most influential were:
