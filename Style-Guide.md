@@ -1,21 +1,38 @@
-#Node Style Guide
+# Node Style Guide
 
 This style guide is intended to increase the readability of all code in this respository by ensuring that certain standards are followed.
 
-###Formatting 
+### Formatting 
 
-#####Line Length
+##### Line Length
 The maximum length of a single line of code should not exceed 80 characters.
 
-#####Indentation 
+##### Indentation 
 Indentation should always be 4 spaces. The tab key should not be used to indent code.
 
-#####Whitespace and newlines
+##### Whitespace and newlines
 `\n` should always be used as the newline character. `\r\n` should not be used.
 
 There should be no trailing whitespace or newlines at the end of any line of code or at the end of a file.
 
-#####Braces and Parentheses
+##### Spacing
+
+Place one space after an `if` or `else` keyword and after before the opening parenthesis for the block.
+
+<i>Correct:</i>
+```
+if (isTrue) {
+  // execute code
+}
+```
+<i>Incorrect:</i>
+```
+if(isTrue){
+  // execute code
+}
+```
+
+##### Braces and Parentheses
 Opening braces should be placed on the same line as the expression that precedes them.
 
 <i>Correct:</i>
@@ -77,6 +94,8 @@ if (badFormatting)
 function () { return false; }
 ```
 
+##### If-else Blocks
+
 For if-else blocks, put `else` on the same line as the end of the corresponding `if` statement.
 
 <i>Correct:</i>
@@ -132,7 +151,11 @@ if (true) {
 }
 ```
 
-###Variables
+##### TODO
+
+Use `// TODO:` to specify areas of code that need attention in the future.
+
+### Variables
 
 ##### Lower Camel Case
 
@@ -207,7 +230,7 @@ var anotherObject = [
 ];
 ```
 
-###Objects
+### Objects
 
 ##### Literal Syntax
 
@@ -221,7 +244,7 @@ const object = {};
 ```
 const object = new Object();
 ```
-###Arrays
+### Arrays
 
 ##### Literal Syntax
 Use literal syntax to create arrays
@@ -235,13 +258,13 @@ const array = [];
 const array = new Array();
 ```
 
-###Functions
+### Functions
 
 ##### Keep Functions Short
 
 Functions should be kept as short as possible to increase readability. Any major service should be broken out into a seperate function. 
 
-###Properties
+### Properties
 
 ##### Dot Notation
 
@@ -265,6 +288,8 @@ var event = {
 
 const eventTime = event['time'];
 ```
+
+### References 
 
 This style guide was influenced by several well-written style guides. The most influential were:
 
