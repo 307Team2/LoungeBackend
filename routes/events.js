@@ -9,6 +9,14 @@ module.exports = function(app) {
 
     // Route for creating events
     app.post('/events/create', function(req, res, next) {
+        // TODO: Might need to parse this date, not sure
+        var startDate = req.body.startDate;
+        if (startDate > Date.now()) {
+            console.log('invalid startDate (in future)');
+            res.status(400).send({error: 'Invalid startDate'});
+            return;
+        }
+
         var auth_token = req.get('Authorization');
         jwt.verify(auth_token, app.get('superSecret'), function(err, userId) {
             if (err) {
