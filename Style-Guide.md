@@ -157,9 +157,9 @@ Use `// TODO:` to specify areas of code that need attention in the future.
 
 ### Variables
 
-##### Lower Camel Case
+##### Camel Case
 
-Lower camel case should be used for all variable declarations.
+Camel case should be used for all variable declarations. Upper or lower camel case can be used depending on the situation.
 
 <i>Correct:</i>
 ```
