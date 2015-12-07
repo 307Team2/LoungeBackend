@@ -10,6 +10,7 @@ module.exports = function(app) {
     // Route for creating events
     app.post('/events/create', function(req, res, next) {
         // TODO: Might need to parse this date, not sure
+        // validate that start date makes sense
         var startDate = req.body.startDate;
         if (startDate > Date.now()) {
             console.log('invalid startDate (in future)');
