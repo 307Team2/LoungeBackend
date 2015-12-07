@@ -1,21 +1,38 @@
-#Node Style Guide
+# Node Style Guide
 
 This style guide is intended to increase the readability of all code in this respository by ensuring that certain standards are followed.
 
-###Formatting 
+### Formatting 
 
-#####Line Length
+##### Line Length
 The maximum length of a single line of code should not exceed 80 characters.
 
-#####Indentation 
+##### Indentation 
 Indentation should always be 4 spaces. The tab key should not be used to indent code.
 
-#####Whitespace and newlines
+##### Whitespace and newlines
 `\n` should always be used as the newline character. `\r\n` should not be used.
 
 There should be no trailing whitespace or newlines at the end of any line of code or at the end of a file.
 
-#####Braces and Parentheses
+##### Spacing
+
+Place one space after an `if` or `else` keyword and after before the opening parenthesis for the block.
+
+<i>Correct:</i>
+```
+if (isTrue) {
+  // execute code
+}
+```
+<i>Incorrect:</i>
+```
+if(isTrue){
+  // execute code
+}
+```
+
+##### Braces and Parentheses
 Opening braces should be placed on the same line as the expression that precedes them.
 
 <i>Correct:</i>
@@ -31,6 +48,9 @@ if (true)
   console.log('Incorrect');
 }
 ```
+
+##### Closing Parentheses
+
 Closing parentheses and braces should be grouped on the same line.
 
 <i>Correct:</i>
@@ -50,8 +70,96 @@ res.json(
 );
 ```
 
-###Variables
-Camel case should be used for all variable declarations.
+##### Code Blocks
+
+Use braces for multi-line blocks of code.
+
+<i>Correct:</i>
+```
+if (true) return true;
+
+if (true) {
+  return true;
+}
+
+function () {
+  return true;
+}
+```
+<i>Incorrect:</i>
+```
+if (badFormatting)
+  return false;
+
+function () { return false; }
+```
+
+##### If-else Blocks
+
+For if-else blocks, put `else` on the same line as the end of the corresponding `if` statement.
+
+<i>Correct:</i>
+```
+if (isTrue) {
+  console.log('true');
+} else {
+  console.log('not true);
+}
+```
+
+<i>Incorrect:</i>
+```
+if (isTrue) {
+  console.log('true');
+} 
+else {
+  console.log('not true);
+}
+```
+
+### Comments
+
+##### Multi-Line Comments
+
+Use `/* ... */` for comments spanning multiple lines. 
+
+##### Single-Line Comments
+
+Use `//` for comments on a single line.
+
+##### Indentation
+
+Comment indentation should match that of the block of code it is inside.
+
+<i>Correct:</i>
+```
+if (true) {
+  // prints that it is true
+  console.log('true');
+}
+```
+<i>Incorrect:</i>
+```
+if (true) {
+// prints that it is true
+  console.log('true');
+}
+
+if (true) { 
+    // prints that it is true
+  console.log('true');
+}
+```
+
+##### TODO
+
+Use `// TODO:` to specify areas of code that need attention in the future.
+
+### Variables
+
+##### Camel Case
+
+Camel case should be used for all variable declarations. Upper or lower camel case can be used depending on the situation.
 
 <i>Correct:</i>
 ```
@@ -62,6 +170,8 @@ const newVariable = 1;
 const new_variable = 1;
 const new-variable = 1;
 ```
+
+##### 4 Word Variable Names
 
 Variable names should not exceed 4 words, for readability.
 
@@ -74,6 +184,8 @@ const newPerson = 'Evan';
 const newPersonNameDataInitial = 'Evan';
 ```
 
+##### Match Number of Data Type
+
 Variables should match the number of the object type they represent.
 
 <i>Correct:</i>
@@ -82,7 +194,46 @@ const user = 'Evan';
 const users = [];
 ```
 
-###Objects
+##### One Variable Per Var
+
+Only declare one variable per var keyword.
+
+<i>Correct:</i>
+```
+var firstValue = 1;
+var otherValues = [10, 20];
+```
+<i>Incorrect:</i>
+```
+var firstValue = 1,
+    otherValues = [10, 20];
+```
+
+##### Object and Array Formatting
+
+For objects and arrays, place opening and closing syntax on the same line, if it is a short declaration.
+
+<i>Correct:</i>
+```
+var object = ['good', 'object'];
+```
+<i>Incorrect:</i>
+```
+var oneObject = [
+  'bad', 'object'
+];
+
+var anotherObject = [
+  'still',
+  'bad',
+  'object'
+];
+```
+
+### Objects
+
+##### Literal Syntax
+
 Use literal syntax to create objects.
 
 <i>Correct:</i>
@@ -93,7 +244,9 @@ const object = {};
 ```
 const object = new Object();
 ```
-###Arrays
+### Arrays
+
+##### Literal Syntax
 Use literal syntax to create arrays
 
 <i>Correct:</i>
@@ -104,6 +257,39 @@ const array = [];
 ```
 const array = new Array();
 ```
+
+### Functions
+
+##### Keep Functions Short
+
+Functions should be kept as short as possible to increase readability. Any major service should be broken out into a seperate function. 
+
+### Properties
+
+##### Dot Notation
+
+Use dot notation to access the properties of variables.
+
+<i>Correct:</i>
+```
+var event = {
+  name: 'Fun Event',
+  time: '6:00pm',
+};
+
+const eventTime = event.time;
+```
+<i>Incorrect:</i>
+```
+var event = {
+  name: 'Fun Event',
+  time: '6:00pm',
+};
+
+const eventTime = event['time'];
+```
+
+### References 
 
 This style guide was influenced by several well-written style guides. The most influential were:
 

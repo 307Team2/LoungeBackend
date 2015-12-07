@@ -18,8 +18,8 @@ module.exports = function(app) {
             return;
         }
 
-        var auth_token = req.get('Authorization');
-        jwt.verify(auth_token, app.get('superSecret'), function(error, userId) {
+        var authToken = req.get('Authorization');
+        jwt.verify(authToken, app.get('superSecret'), function(error, userId) {
             User.findById(userId, function(error, user) {
                 if (error) {
                     res.status(500).send(error);
@@ -47,10 +47,10 @@ module.exports = function(app) {
     app.get('/posts/all?', function(req, res, next) {
 
 
-        var auth_token = req.get('Authorization');
+        var authToken = req.get('Authorization');
         var limit = req.query.limit;
         var lastTimestamp = req.query.lastTimestamp;
-        jwt.verify(auth_token, app.get('superSecret'), function(err, userId) {
+        jwt.verify(authToken, app.get('superSecret'), function(err, userId) {
             if (err) {
                 console.log(err);
                 res.sendStatus(500);
@@ -72,7 +72,7 @@ module.exports = function(app) {
                                 if (author) {
                                     newPost.displayName = author.firstName + " " + author.lastName;
                                 } else {
-                                    newPost.displayName = "Anonymous"
+                                    newPost.displayName = "Anonymous";
                                 }
                                 cb(null, newPost);
                             });
@@ -86,5 +86,56 @@ module.exports = function(app) {
                 });
             }
         });
+    });
+
+    // expects req.body with shape of {commentContent: String}
+    app.post('/posts/:postId/comments', function(req, res) {
+        var commentContent = req.body.commentContent;
+        var authorId = req.user.id;
+
+        Post.findById(req.params.postId, function(findErr, post) {
+            if (findErr) {
+                console.log('error finding post', findErr);
+                res.sendStatus(500);
+                return;
+            }
+
+            var newComment = {
+                authorId: authorId,
+                content: commentContent
+            };
+
+            post.comments.push(newComment);
+            post.save(function(saveErr) {
+                if (saveErr) {
+                    console.log('error saving post afer adding comment', saveErr);
+                }
+
+                // send back updated post
+                res.send(post);
+            });
+        });
+    });
+
+    app.delete('/posts/:postId/comments', function(req, res) {
+      var commentId = req.body.commentId;
+
+      Post.findById(req.params.postId, function(findErr, post) {
+        if (findErr) {
+            console.log('error finding post', findErr);
+            res.sendStatus(500);
+            return;
+        }
+
+        post.comments.id(commentId).remove();
+        post.save(function(saveErr) {
+            if (saveErr) {
+                console.log('error saving post afer adding comment', saveErr);
+            }
+
+            // send back updated post
+            res.send(post);
+        });
+      });
     });
 };

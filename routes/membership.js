@@ -15,8 +15,8 @@ module.exports = function(app) {
     // /membership/create expects a req.body.tier and req.body.stripeToken
     app.post('/membership/create', function(req, res, next) {
 
-        var auth_token = req.get('Authorization');
-        jwt.verify(auth_token, app.get('superSecret'), function(error, userId) {
+        var authToken = req.get('Authorization');
+        jwt.verify(authToken, app.get('superSecret'), function(error, userId) {
 
             if (error) res.status(500).send("User not logged in: " + error);
 
