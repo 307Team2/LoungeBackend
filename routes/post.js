@@ -82,7 +82,8 @@ module.exports = function(app) {
         });
     });
 
-    app.post('/posts/:postId/addComment', function(req, res) {
+    // expects req.body with shape of {commentContent: String}
+    app.post('/posts/:postId/comments', function(req, res) {
         var commentContent = req.body.commentContent;
         var authorId = req.user.id;
 
