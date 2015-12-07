@@ -16,9 +16,9 @@ module.exports = function(app) {
         var auth_token = req.get('Authorization');
         jwt.verify(auth_token, app.get('superSecret'), function(error, userId) {
             User.findById(userId, function(error, user) {
-                if (error) {
+				if (error) {
 					console.log('Error finding by ID:', error);
-                    res.status(500).send(error);
+					res.status(500).send(error);
                 } else if (user) {
                     req.body.authorId = user._id;
                     postServices.createPost(req.body, user.tier, function(err, post) {
@@ -26,7 +26,7 @@ module.exports = function(app) {
                             console.log('Error creating post:', err);
                             res.status(500).send(err);
                         } else {
-                            User.findById(post.authorId, function(error, author) {
+                            User.findById(post.authorId, function(errorById, author) {
                                 var newPost = post.toObject();
                                 newPost.displayName = author.firstName + " " + author.lastName;
                                 res.json({
@@ -49,7 +49,7 @@ module.exports = function(app) {
         jwt.verify(auth_token, app.get('superSecret'), function(err, userId) {
             if (err) {
                 console.log('Error verifying auth token:', err);
-                res.status(500).send(err);
+                res.status(401).send(err);
             } else {
                 User.findById(userId, function(error, user) {
                     if (error) {
@@ -59,7 +59,7 @@ module.exports = function(app) {
                     postServices.findAllPosts(user.tier, limit, lastTimestamp, function(err, posts) {
                         if (err) {
 							console.log('Error finding all posts:', err);
-                			res.status(500).send(err);
+							res.status(500).send(err);
                             return;
                         }
 

@@ -13,7 +13,7 @@ module.exports = function(app) {
         jwt.verify(auth_token, app.get('superSecret'), function(err, userId) {
             if (err) {
                 console.log('Error verifying auth token:', err);
-                res.status(500).send(err);
+                res.status(401).send(err);
             }
             User.findById(userId, function(error, user) {
                 if (error) {
@@ -40,17 +40,17 @@ module.exports = function(app) {
         jwt.verify(auth_token, app.get('superSecret'), function(err, userId) {
             if (err) {
                 console.log('Error verifying auth token:', err);
-                res.status(500).send(err);
+                res.status(401).send(err);
             }
             User.findById(userId, function(error, user) {
                 if (error) {
                     console.log('Error finding user by ID:', error);
                     res.status(500).send(error);
                 }
-                eventServices.findAllEventsInTier(user.tier, function(err, events) {
-                    if (err) {
-                        console.error('Error finding all events in tier:', err);
-                        res.status(500).send(err);
+                eventServices.findAllEventsInTier(user.tier, function(errEvents, events) {
+                    if (errEvents) {
+                        console.error('Error finding all events in tier:', errEvents);
+                        res.status(500).send(errEvents);
                     } else {
                         console.log(events);
                         res.json({
@@ -66,7 +66,7 @@ module.exports = function(app) {
     app.post('/events/:id/rsvp', function(req, res, next) {
         var auth_token = req.get('Authorization');
         jwt.verify(auth_token, app.get('superSecret'), function(error, userId) {
-            if (error) res.status(500).send("User not logged in: " + error);
+            if (error) res.status(401).send("User not logged in: " + error);
             eventServices.rsvpToEvent(req.params.id, req.body.rsvp, userId, function(err, evnt) {
                 if (err) res.status(500).send("Could not rsvp to event: " + err);
 
