@@ -165,4 +165,23 @@ module.exports = function(app) {
     app.get('/account/password_reset', function(req, res, next) {
         res.render('account/reset_password');
     });
+
+    app.delete('/account', function(req, res, next) {
+        var username = req.body.username;
+
+        if (req.user && req.user.isAdmin) {
+            User.findOneAndRemove({username: username}, function(err, user) {
+              if (err) {
+                console.log('error removing user account', err);
+                res.sendStatus(500);
+                return;
+              }
+
+              // deleted successfully
+              res.sendStatus(200);
+            });
+        } else {
+            res.sendStatus(403);
+        }
+    });
 };
