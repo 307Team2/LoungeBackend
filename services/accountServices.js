@@ -11,7 +11,8 @@ accountServices.createUser = function(userData, cb) {
         location: userData.location,
         organization: userData.organization,
         jobTitle: userData.jobTitle,
-        photoUrl: userData.photoUrl
+        photoUrl: userData.photoUrl,
+        isAdmin: false
     });
 
     User.register(newUser, userData.password, function(err, user) {
