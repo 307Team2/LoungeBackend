@@ -29,6 +29,7 @@ module.exports = function(app) {
     app.post('/account/signup', function(req, res, next) {
 
         accountServices.createUser(req.body, function(err, user) {
+            console.log(req.body);
             if (err) {
                 console.log(err);
                 res.json({
@@ -168,21 +169,53 @@ module.exports = function(app) {
     });
 
     app.delete('/account', function(req, res, next) {
-        var username = req.body.username;
+        var auth_token = req.get('Authorization');
+        jwt.verify(auth_token, app.get('superSecret'), function(error, userId) {
+            User.findById(userId, function(error, user) {
+                if (error) {
+                    res.status(500).send(error);
+                } else if (user && user.isAdmin) {
+                    User.findOneAndRemove({username: req.body.username}, function(err, user) {
+                        if (err) {
+                            console.log('error removing user account', err);
+                            res.sendStatus(500);
+                            return;
+                        }
 
-        if (req.user && req.user.isAdmin) {
-            User.findOneAndRemove({username: username}, function(err, user) {
-              if (err) {
-                console.log('error removing user account', err);
-                res.sendStatus(500);
-                return;
-              }
-
-              // deleted successfully
-              res.sendStatus(200);
+                        // deleted successfully
+                        res.json({
+                            username: req.body.username
+                        });
+                    });
+                } else {
+                    res.sendStatus(403);
+                }
             });
-        } else {
-            res.sendStatus(403);
-        }
+        });
+
+        // var username = req.body.username;
+        // console.log(req);
+        // if (req.user && req.user.isAdmin) {
+        //     User.findOneAndRemove({username: username}, function(err, user) {
+        //         if (err) {
+        //             console.log('error removing user account', err);
+        //             res.sendStatus(500);
+        //             return;
+        //         }
+        //
+        //         // deleted successfully
+        //         res.json({
+        //             username: username
+        //         });
+        //     });
+        // } else {
+        //     res.sendStatus(403);
+        // }
+    });
+
+    app.get('/users', function(req, res, next) {
+        User.find({}).exec(function(err, users) {
+            res.send(users);
+        });
     });
 };
