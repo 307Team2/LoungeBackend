@@ -66,6 +66,18 @@ module.exports = function(app) {
                             return;
                         }
 
+                        var expandComment = function(comment, cb) {
+                            User.findById(comment.authorId, function(error, author) {
+                                var newComment = comment.toObject();
+                                if (author) {
+                                    newComment.displayName = author.firstName + " " + author.lastName;
+                                } else {
+                                    newComment.displayName = "Anonymous";
+                                }
+                                cb(null, newComment);
+                            });
+                        };
+
                         var expandPost = function(post, cb) {
                             User.findById(post.authorId, function(error, author) {
                                 var newPost = post.toObject();
@@ -74,9 +86,14 @@ module.exports = function(app) {
                                 } else {
                                     newPost.displayName = "Anonymous";
                                 }
-                                cb(null, newPost);
+
+                                async.map(post.comments, expandComment, function(error, expandedComments) {
+                                    newPost.comments = expandedComments;
+                                    cb(null, newPost);
+                                });
                             });
                         };
+
                         async.map(posts, expandPost, function(error, expandedPosts) {
                             res.json({
                                 posts: expandedPosts
@@ -91,30 +108,65 @@ module.exports = function(app) {
     // expects req.body with shape of {commentContent: String}
     app.post('/posts/:postId/comments', function(req, res) {
         var commentContent = req.body.commentContent;
-        var authorId = req.user.id;
 
-        Post.findById(req.params.postId, function(findErr, post) {
-            if (findErr) {
-                console.log('error finding post', findErr);
-                res.sendStatus(500);
-                return;
-            }
+        var authToken = req.get('Authorization');
+        jwt.verify(authToken, app.get('superSecret'), function(error, authorId) {
 
-            var newComment = {
-                authorId: authorId,
-                content: commentContent
-            };
-
-            post.comments.push(newComment);
-            post.save(function(saveErr) {
-                if (saveErr) {
-                    console.log('error saving post afer adding comment', saveErr);
+            Post.findById(req.params.postId, function(findErr, post) {
+                if (findErr) {
+                    console.log('error finding post', findErr);
+                    res.sendStatus(500);
+                    return;
                 }
 
-                // send back updated post
-                res.send(post);
+                var newComment = {
+                    authorId: authorId,
+                    content: commentContent
+                };
+
+                post.comments.push(newComment);
+                post.save(function(saveErr) {
+                    if (saveErr) {
+                        console.log('error saving post afer adding comment', saveErr);
+                    }
+
+                    var expandComment = function(comment, cb) {
+                        User.findById(comment.authorId, function(error, author) {
+                            var newComment = comment.toObject();
+                            if (author) {
+                                newComment.displayName = author.firstName + " " + author.lastName;
+                            } else {
+                                newComment.displayName = "Anonymous";
+                            }
+                            cb(null, newComment);
+                        });
+                    };
+
+                    var expandPost = function(post, cb) {
+                        User.findById(post.authorId, function(error, author) {
+                            var newPost = post.toObject();
+                            if (author) {
+                                newPost.displayName = author.firstName + " " + author.lastName;
+                            } else {
+                                newPost.displayName = "Anonymous";
+                            }
+
+                            async.map(post.comments, expandComment, function(error, expandedComments) {
+                                newPost.comments = expandedComments;
+                                cb(null, newPost);
+                            });
+                        });
+                    };
+
+                    expandPost(post, function(errors, expandedPost) {
+                        // send back updated post
+                        res.send(expandedPost);
+                    });
+                });
             });
+
         });
+
     });
 
     app.delete('/posts/:postId/comments', function(req, res) {

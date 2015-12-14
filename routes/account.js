@@ -127,7 +127,8 @@ module.exports = function(app) {
            sendgrid.send(payload, function(err, json) {
                    if (err) { console.error(err); }
                    console.log(json);
-        */ });
+           });
+        */
     });
 
     app.post('/account/reset_email_sent', function(req, res, next) {
