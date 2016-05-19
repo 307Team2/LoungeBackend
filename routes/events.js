@@ -28,18 +28,18 @@ module.exports = function(app) {
         var auth_token = req.get('Authorization');
         jwt.verify(auth_token, app.get('superSecret'), function(err, userId) {
             if (err) {
-                console.log(err);
-                res.sendStatus(500);
+                console.log('Error verifying auth token:', err);
+                res.status(401).send(err);
             }
             User.findById(userId, function(error, user) {
                 if (error) {
-                    console.log(error);
-                    res.sendStatus(500);
+                    console.log('Error finding user by ID:', error);
+                    res.status(500).send(error);
                 }
                 eventServices.createEvent(req.body, user.tier, function(createErr, event) {
                     if (createErr) {
-                        console.log(createErr);
-                        res.sendStatus(500);
+                        console.log('Error creating event:', createErr);
+                        res.status(500).send(createErr);
                     } else {
                         console.log('New event created: ' + event);
                         res.json({
@@ -55,18 +55,18 @@ module.exports = function(app) {
         var auth_token = req.get('Authorization');
         jwt.verify(auth_token, app.get('superSecret'), function(err, userId) {
             if (err) {
-                console.log(err);
-                res.sendStatus(500);
+                console.log('Error verifying auth token:', err);
+                res.status(401).send(err);
             }
             User.findById(userId, function(error, user) {
                 if (error) {
-                    console.log(error);
-                    res.sendStatus(500);
+                    console.log('Error finding user by ID:', error);
+                    res.status(500).send(error);
                 }
-                eventServices.findAllEventsInTier(user.tier, function(err, events) {
-                    if (err) {
-                        console.error(err);
-                        res.sendStatus(500);
+                eventServices.findAllEventsInTier(user.tier, function(errEvents, events) {
+                    if (errEvents) {
+                        console.error('Error finding all events in tier:', errEvents);
+                        res.status(500).send(errEvents);
                     } else {
                         console.log(events);
                         res.json({
@@ -82,7 +82,7 @@ module.exports = function(app) {
     app.post('/events/:id/rsvp', function(req, res, next) {
         var auth_token = req.get('Authorization');
         jwt.verify(auth_token, app.get('superSecret'), function(error, userId) {
-            if (error) res.status(500).send("User not logged in: " + error);
+            if (error) res.status(401).send("User not logged in: " + error);
             eventServices.rsvpToEvent(req.params.id, req.body.rsvp, userId, function(err, evnt) {
                 if (err) res.status(500).send("Could not rsvp to event: " + err);
 
@@ -100,8 +100,8 @@ module.exports = function(app) {
         jwt.verify(auth_token, app.get('superSecret'), function(error, userId) {
             eventServices.findOneEvent(req.params.id, function(err, evnt) {
                 if (err) {
-                    console.log(err);
-                    res.sendStatus(500);
+                    console.log('Error finding one event:', err);
+                    res.status(500).send(err);
                 } else {
 
                     var expandUser = function(userId, cb) {
@@ -136,8 +136,8 @@ module.exports = function(app) {
 
         eventServices.findAllEvents(function(err, events) {
             if (err) {
-                console.log(err);
-                res.sendStatus(500);
+                console.log('Error finding all events:', err);
+                res.status(500).send(err);
             } else {
                 // not logging here since data might be massive
 
@@ -153,8 +153,8 @@ module.exports = function(app) {
 
         eventServices.findAllEventsInTier(function(err, tier, events) {
             if (err) {
-                console.log(err);
-                res.sendStatus(500);
+                console.log('Error finding all events in tier:', err);
+                res.status(500).send(err);
             } else {
                 res.json({
                     events: events
